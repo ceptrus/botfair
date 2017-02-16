@@ -1,0 +1,30 @@
+// http://palantir.github.io/tslint/rules/
+
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "no-parameter-properties": true,
+    "max-line-length": [true, 140],
+    "no-console": [true, "log", "error", "debug", "info"],
+    "no-eval": true,
+    "no-empty": true,
+    "no-unused-expression": true,
+    "triple-equals": true,
+    "eofline": true,
+    "indent": [true, "spaces"],
+    "linebreak-style": [true, "LF"],
+    "max-file-line-count": [true, 300],
+    "no-default-export": true,
+    "no-require-imports": false,
+    "no-var-requires": false,
+    "no-trailing-whitespace": false,
+    "member-ordering": [true, "static-before-instance", "variables-before-functions"],
+    "trailing-comma": false,
+    "no-consecutive-blank-lines": true,
+    "object-literal-sort-keys": false,
+    "one-line": [true, "check-catch", "check-else", "check-open-brace", "check-whitespace"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+    "whitespace": [true, "check-branch", "check-operator", "check-typecast", "check-decl", "check-module", "check-separator", "check-type"],
+    "switch-default": false
+  }
+}

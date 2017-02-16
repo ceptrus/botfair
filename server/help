@@ -1,0 +1,420 @@
+export class paths {
+    public static urlLogin: string = "";
+    public static urlKeepAlive: string = "https://identitysso.betfair.com/api/keepAlive";
+    public static urlFacet: string = "https://www.betfair.com/www/sports/navigation/facet/v1/search";
+    public static urlLBR: string = "";
+    public static urlERO: string = "";
+    public static urlCashout: string = "";
+    public static urlWallet: string = "https://www.betfair.com/wallet-service/v3.0/wallets?walletNames=[MAIN]&alt=json";
+}
+
+// KEEP ALIVE - GET
+curl
+'https://identitysso.betfair.com/api/keepAlive?ts=1485956437903' - H
+'Pragma: no-cache' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'Accept: image/webp,image/*,*/*;q=0.8' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; JSESSIONID=CCF364B3976595303258060634479597; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; bucket=2~0~test_search; language=en; userhistory=2963911431479719844648|2|Y|211116|211116|home|N; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den; betexPtkSess=betexRegionSessionCookie%3DGBR%7EbetexCurrencySessionCookie%3DEUR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; BETEX_ESD=accountservices; lka=1485956377914' - H
+'Connection: keep-alive' - H
+'Cache-Control: no-cache'--
+compressed
+
+
+
+
+// NO DATA RETURNED
+
+// PLACE NEW BET - POST
+curl
+'https://www.betfair.com/api/etx-json-rpc?alt=json&ts=1485956659304' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Origin: https://www.betfair.com' - H
+'Accept-Encoding: gzip, deflate, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'content-type: application/json' - H
+'Accept: application/json' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485956637902' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+data - binary
+'[{"method":"ExchangeTransactional/v1.0/place","params":["1.129422186",[{"selectionId":7154519,"handicap":0,"limitOrder":{"size":2,"price":1.05,"persistenceType":"LAPSE"},"orderType":"LIMIT","side":"BACK"}],"1485956659302-1.129422186-plc-0"],"id":"1.129422186-plc","jsonrpc":"2.0"}]'--
+compressed [
+
+    [{
+        "jsonrpc": "2.0",
+        "result": {
+            "customerRef": "1485956659302-1.129422186-plc-0",
+            "marketId": "1.129422186",
+            "instructionReports": [{
+                "instruction": {
+                    "selectionId": 7154519,
+                    "handicap": 0.0,
+                    "limitOrder": {"size": 2.0, "price": 1.05, "persistenceType": "LAPSE"},
+                    "orderType": "LIMIT",
+                    "side": "BACK"
+                },
+                "betId": "84635792744",
+                "placedDate": "2017-02-01T13:44:19.000Z",
+                "averagePriceMatched": 1.05,
+                "sizeMatched": 2.0,
+                "status": "SUCCESS",
+                "orderStatus": "EXECUTION_COMPLETE"
+            }],
+            "status": "SUCCESS"
+        },
+        "id": "1.129422186-plc"
+    }]
+
+// WALLET - GET
+curl
+'https://www.betfair.com/wallet-service/v3.0/wallets?walletNames=\[MAIN\]&alt=json' - H
+'X-Application: SharedSiteComponent' - H
+'Pragma: no-cache' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'X-BF-Jurisdiction: international' - H
+'Content-Type: application/json' - H
+'Accept: */*' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485956637902' - H
+'Connection: keep-alive'--
+compressed [
+
+    [{"details": {"amount": "12.00"}, "status": "SUCCESS", "walletName": "MAIN"}]
+
+// BY MARKET - GET - ERO
+curl
+'https://www.betfair.com/www/sports/exchange/readonly/v1/bymarket?currencyCode=EUR&locale=en_GB&marketIds=1.129422186&rollupLimit=2&rollupModel=STAKE&types=MARKET_STATE,RUNNER_STATE,RUNNER_EXCHANGE_PRICES_BEST,RUNNER_DESCRIPTION' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'Accept: application/json, text/plain, */*' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485956637902' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+compressed [
+
+    {
+        "currencyCode": "EUR",
+        "eventTypes": [{
+            "eventTypeId": 1,
+            "eventNodes": [{
+                "eventId": 28094702,
+                "marketNodes": [{
+                    "marketId": "1.129422186",
+                    "isMarketDataDelayed": false,
+                    "highWaterMark": "3800473945",
+                    "state": {
+                        "betDelay": 5,
+                        "bspReconciled": false,
+                        "complete": true,
+                        "inplay": true,
+                        "numberOfWinners": 1,
+                        "numberOfRunners": 3,
+                        "numberOfActiveRunners": 3,
+                        "lastMatchTime": "2017-02-01T13:44:24.415Z",
+                        "totalMatched": 3082.782755183974,
+                        "totalAvailable": 6250.035791738107,
+                        "crossMatching": true,
+                        "runnersVoidable": false,
+                        "version": 1546566720,
+                        "status": "OPEN"
+                    },
+                    "runners": [{
+                        "selectionId": 7154519,
+                        "handicap": 0.0,
+                        "description": {"runnerName": "NK Solin"},
+                        "state": {"sortPriority": 1, "lastPriceTraded": 1.05, "totalMatched": 2906.9172961483455, "status": "ACTIVE"},
+                        "exchange": {
+                            "availableToBack": [{"price": 1.05, "size": 380.33464356435644}, {
+                                "price": 1.04,
+                                "size": 515.8
+                            }, {"price": 1.03, "size": 1085.8460611650569}],
+                            "availableToLay": [{"price": 1.06, "size": 10.630532277227724}, {"price": 1.07, "size": 64.44}, {
+                                "price": 1.08,
+                                "size": 37.07247524752475
+                            }]
+                        }
+                    }, {
+                        "selectionId": 7154508,
+                        "handicap": 0.0,
+                        "description": {"runnerName": "NK Dugopolje"},
+                        "state": {"sortPriority": 2, "lastPriceTraded": 36.0, "totalMatched": 44.43192048954252, "status": "ACTIVE"},
+                        "exchange": {
+                            "availableToBack": [{"price": 25.0, "size": 5.246408713997123}, {
+                                "price": 24.0,
+                                "size": 2.0
+                            }, {"price": 23.0, "size": 20.0}],
+                            "availableToLay": [{"price": 120.0, "size": 2.39}, {"price": 150.0, "size": 2.0}, {
+                                "price": 220.0,
+                                "size": 3.0000000000000004
+                            }]
+                        }
+                    }, {
+                        "selectionId": 58805,
+                        "handicap": 0.0,
+                        "description": {"runnerName": "The Draw"},
+                        "state": {"sortPriority": 3, "lastPriceTraded": 34.0, "totalMatched": 131.43353854608628, "status": "ACTIVE"},
+                        "exchange": {
+                            "availableToBack": [{"price": 17.5, "size": 4.503463924978787}, {
+                                "price": 15.0,
+                                "size": 2.6692182178217845
+                            }, {"price": 13.0, "size": 6.526830276313787}], "availableToLay": [{"price": 48.0, "size": 4.120000000000001}]
+                        }
+                    }],
+                    "isMarketDataVirtual": true
+                }]
+            }]
+        }],
+        "indicative": false
+    }
+
+// CASHOUT - GET
+curl
+'https://cashout-service.betfair.com/cashout-service/readonly/v1.0/quote?alt=json&currencyCode=EUR&marketIds=1.129422186&ts=1485956664741' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Origin: https://www.betfair.com' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'Accept: application/json, text/plain, */*' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485956637902' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+compressed [
+
+    [{
+        "marketId": "1.129422186",
+        "value": 1.96,
+        "currentLiability": 2.0,
+        "profit": -0.04,
+        "profitPerSelection": {"7154508": -0.04, "58805": -0.04, "7154519": -0.04},
+        "minPartialPercentage": 5,
+        "maxPartialPercentage": 100,
+        "status": "AVAILABLE",
+        "algorithm": "ZERO_BACK"
+    }]
+
+// MARKET POSITION VIEW - GET
+curl
+'https://www.betfair.com/www/sports/exchange/reporting/live/v1.0/getMarketPositionViews?alt=json&includeSettledProfit=false&marketIds=1.129422186&matchProjection=MATCH&ts=1485957284961' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'Accept: application/json, text/plain, */*' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485957237877' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+compressed [
+
+    [{
+        "marketId": "1.129422186",
+        "selections": [{
+            "selectionId": 7154519,
+            "orders": [{
+                "betId": "1:84635792744",
+                "marketId": "1.129422186",
+                "selectionId": 7154519,
+                "handicap": 0.0,
+                "price": 1.05,
+                "size": 2.0,
+                "bspLiability": 0.0,
+                "placedDate": "2017-02-01T13:44:19.000Z",
+                "matchedDate": "2017-02-01T13:44:24.000Z",
+                "averagePriceMatched": 1.05,
+                "sizeMatched": 2.0,
+                "sizeRemaining": 0.0,
+                "sizeLapsed": 0.0,
+                "sizeCancelled": 0.0,
+                "sizeVoided": 0.0,
+                "regulatorCode": "MALTA LOTTERIES AND GAMBLING AUTHORITY",
+                "side": "BACK",
+                "status": "EXECUTION_COMPLETE",
+                "persistenceType": "LAPSE",
+                "orderType": "LIMIT"
+            }, {
+                "betId": "1:84636395766",
+                "marketId": "1.129422186",
+                "selectionId": 7154519,
+                "handicap": 0.0,
+                "price": 2.0,
+                "size": 2.0,
+                "bspLiability": 0.0,
+                "placedDate": "2017-02-01T13:54:20.000Z",
+                "averagePriceMatched": 0.0,
+                "sizeMatched": 0.0,
+                "sizeRemaining": 2.0,
+                "sizeLapsed": 0.0,
+                "sizeCancelled": 0.0,
+                "sizeVoided": 0.0,
+                "regulatorCode": "MALTA LOTTERIES AND GAMBLING AUTHORITY",
+                "side": "BACK",
+                "status": "EXECUTABLE",
+                "persistenceType": "LAPSE",
+                "orderType": "LIMIT"
+            }],
+            "matches": [{
+                "betId": "1:84635792744",
+                "matchId": "98864574337",
+                "price": 1.05,
+                "size": 2.0,
+                "matchDate": "2017-02-01T13:44:24.000Z",
+                "isBSP": false,
+                "side": "BACK"
+            }]
+        }],
+        "projectionStats": {"MATCH": 1, "AVG_PRICE": 1, "PRICE": 1},
+        "matchProjection": "MATCH"
+    }]
+
+// EVENT TIMELINE - GET
+curl
+'https://www.betfair.com/inplayservice/v1/eventTimeline?alt=json&eventId=28094702&locale=en_GB&productType=EXCHANGE&regionCode=UK&ts=1485957285868' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Accept-Encoding: gzip, deflate, sdch, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'Accept: application/json, text/plain, */*' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485957237877' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+compressed [
+
+    {
+        "eventId": 28094702,
+        "eventTypeId": 1,
+        "score": {
+            "home": {
+                "name": "NK Solin",
+                "score": "2",
+                "halfTimeScore": "",
+                "fullTimeScore": "",
+                "penaltiesScore": "",
+                "penaltiesSequence": [],
+                "games": "",
+                "sets": "",
+                "numberOfYellowCards": 0,
+                "numberOfRedCards": 0,
+                "numberOfCards": 0,
+                "numberOfCorners": 3,
+                "numberOfCornersFirstHalf": 3,
+                "bookingPoints": 0
+            },
+            "away": {
+                "name": "NK Dugopolje",
+                "score": "0",
+                "halfTimeScore": "",
+                "fullTimeScore": "",
+                "penaltiesScore": "",
+                "penaltiesSequence": [],
+                "games": "",
+                "sets": "",
+                "numberOfYellowCards": 0,
+                "numberOfRedCards": 0,
+                "numberOfCards": 0,
+                "numberOfCorners": 5,
+                "numberOfCornersFirstHalf": 5,
+                "bookingPoints": 0
+            },
+            "numberOfYellowCards": 0,
+            "numberOfRedCards": 0,
+            "numberOfCards": 0,
+            "numberOfCorners": 8,
+            "numberOfCornersFirstHalf": 8,
+            "bookingPoints": 0
+        },
+        "timeElapsed": 53,
+        "elapsedRegularTime": 45,
+        "elapsedAddedTime": 8,
+        "updateDetails": [{
+            "updateTime": "2017-02-01T13:00:45.973Z",
+            "updateId": 7,
+            "matchTime": 1,
+            "elapsedRegularTime": 1,
+            "type": "KickOff",
+            "updateType": "KickOff"
+        }, {
+            "updateTime": "2017-02-01T13:15:12.131Z",
+            "updateId": 32,
+            "team": "home",
+            "teamName": "NK Solin",
+            "matchTime": 15,
+            "elapsedRegularTime": 15,
+            "type": "Goal",
+            "updateType": "Goal"
+        }, {
+            "updateTime": "2017-02-01T13:34:29.684Z",
+            "updateId": 64,
+            "team": "home",
+            "teamName": "NK Solin",
+            "matchTime": 34,
+            "elapsedRegularTime": 34,
+            "type": "Goal",
+            "updateType": "Goal"
+        }],
+        "status": "IN_PLAY",
+        "inPlayMatchStatus": "KickOff"
+    }
+
+// FACET - POST
+curl
+'https://www.betfair.com/www/sports/navigation/facet/v1/search?alt=json&ts=1485957286381' - H
+'X-Application: nzIFcwyWhrlwYMrh' - H
+'Pragma: no-cache' - H
+'Origin: https://www.betfair.com' - H
+'Accept-Encoding: gzip, deflate, br' - H
+'Accept-Language: en,pt-PT;q=0.8,pt;q=0.6,en-US;q=0.4,nl;q=0.2' - H
+'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36' - H
+'content-type: application/json' - H
+'Accept: application/json' - H
+'Cache-Control: no-cache' - H
+'Referer: https://www.betfair.com/exchange/plus/' - H
+'Cookie: wsid=fe872ad1-afc8-11e6-ae4a-90e2ba0faec0; bfsd=ts=1479719844537|st=reg; sess=active; bftim=1479720643773; geoIpCountryCode=NL; bfj=NL; NSC_mc-80-qpsubm.efgbvmu=ffffffff0920b70345525d5f4f58455e445a4a4229a0; mEWNSC_mc-80-bddpvoutfswjdft.efgbvmu=ffffffff0920889c45525d5f4f58455e445a4a4216cb; xdVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecVisitorId=1055gIMToFSMAYzeS-yRYLLsj1zhUsL25b6ILRBUNHiKX8g1B3D; atgRecSessionId=kH5mkhBZ5zUaAbz0Mas2AgE38bYDcAXAgQhRGszcA9GBakQKbJ-e!-1275924280!1596249862; promotionCode=FWB000; TrackingTags=promotionCode=FWB000; StickyTags=promotionCode=FWB000; ssoid=rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg=; loggedIn=true; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; bspSP=false; miniGamesDisplayCarousel=false; exp=ex; pref_md_pers_0="{\"com-es-info\":{\"spainRedirectNotification\":\"false\"}}"; language=en; betfairSSC=lsSSC%3D1%3Bcookie-policy%3D0; BETEX_ESD=accountservices; bucket=2~0~test_search; vid=b332c7fb-9fdf-4215-bc14-51e4ad0e905d; userhistory=2963911431479719844648|2|Y|211116|211116|home|Y; mEWbsessionid=3F86593EB35C48CA313DC570585EB2F6; betexPtk=betexCurrency%3DEUR%7EbetexTimeZone%3DEurope%2FLondon%7EbetexRegion%3DGBR%7EbetexLocale%3Den_GB; mEWJSESSIONID=3F86593EB35C48CA313DC570585EB2F6; betexPtkSess=betexCurrencySessionCookie%3DEUR%7EbetexRegionSessionCookie%3DGBR%7EbetexTimeZoneSessionCookie%3DEurope%2FLondon%7EbetexLocaleSessionCookie%3Den_GB%7EbetexSkin%3Dstandard%7EbetexBrand%3Dbetfair; lka=1485957237877' - H
+'Connection: keep-alive' - H
+'X-Authentication: rp/DKnUzs+PI7OFC2K5qpcT4oz4D9wMP5V+nzPMXOBg='--
+data - binary
+'{"filter":{"eventTypeIds":[1],"productTypes":["EXCHANGE"],"selectBy":"RANK","contentGroup":{"language":"en","regionCode":"UK"},"maxResults":0,"inPlayOnly":true,"eventIds":[28094702]},"facets":[{"type":"EVENT","maxValues":0,"skipValues":0,"applyNextTo":0}],"currencyCode":"EUR","locale":"en_GB"}'--
+compressed[
+
+    {
+        "facets": [{"values": [{"key": {"eventId": 28094702}, "cardinality": 20}], "totalResults": 1, "type": "EVENT"}],
+        "results": [],
+        "attachments": {
+            "events": {
+                "28094702": {
+                    "eventId": 28094702,
+                    "key": "EVENT:28094702",
+                    "name": "NK Solin v NK Dugopolje",
+                    "eventTypeId": 1,
+                    "timezone": "Europe/London",
+                    "openDate": "2017-02-01T13:00:00.000Z",
+                    "videoAvailable": false
+                }
+            }
+        }
+    }
+
+
