@@ -22,8 +22,8 @@ export class LoginService {
     }
 
     private init() {
-        const userName = "";
-        const password = "";
+        const userName = process.env.USERNAME;
+        const password = process.env.PASSWORD;
 
         return Request.login(userName, password)
             .then(() => {
