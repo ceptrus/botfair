@@ -12,8 +12,8 @@ export interface IEventTimeLine {
         bookingPoints: number;
     };
     timeElapsed: number;
-    elapsedRegularTime: number;
-    elapsedAddedTime: number;
+    elapsedRegularTime?: number;    // OPTIONAL
+    elapsedAddedTime?: number;      // OPTIONAL
     updateDetails: Array<IEventTimeLineDetails>;
     status: EventTimeLineStatus;
     inPlayMatchStatus: EventTimeLineMatchStatus;
@@ -52,6 +52,57 @@ export enum EventTimeLineStatus {
 export enum EventTimeLineMatchStatus {
     KickOff,
 }
+
+// {
+//     "eventId": 28104386,
+//     "eventTypeId": 1,
+//     "score": {
+//         "home": {
+//             "name": "Tigres (Col)",
+//             "score": "0",
+//             "halfTimeScore": "",
+//             "fullTimeScore": "",
+//             "penaltiesScore": "",
+//             "penaltiesSequence": [],
+//             "games": "",
+//             "sets": "",
+//             "quarterByQuarter": [0, 0]
+//         },
+//         "away": {
+//             "name": "Deportivo Pasto",
+//             "score": "1",
+//             "halfTimeScore": "",
+//             "fullTimeScore": "",
+//             "penaltiesScore": "",
+//             "penaltiesSequence": [],
+//             "games": "",
+//             "sets": "",
+//             "quarterByQuarter": [1, 0]
+//         }
+//     },
+//     "timeElapsed": 47,
+//     "updateDetails": [{
+//         "updateTime": "1970-01-01T00:00:00.000Z",
+//         "matchTime": 0,
+//         "type": "KickOff",
+//         "updateType": "KickOff"
+//     }, {
+//         "updateTime": "2017-02-14T22:04:42.018Z",
+//         "team": "away",
+//         "teamName": "Deportivo Pasto",
+//         "player": "Y. Rivera",
+//         "matchTime": 45,
+//         "type": "Goal",
+//         "updateType": "Goal"
+//     }, {
+//         "updateTime": "1970-01-01T00:00:00.000Z",
+//         "matchTime": 0,
+//         "type": "FirstHalfEnd",
+//         "updateType": "FirstHalfEnd"
+//     }, {"updateTime": "1970-01-01T00:00:00.000Z", "matchTime": 0, "type": "SecondHalfKickOff", "updateType": "SecondHalfKickOff"}],
+//     "status": "IN_PLAY",
+//     "inPlayMatchStatus": "SecondHalfKickOff"
+// }
 
 // {
 //     "eventId": 28094702,

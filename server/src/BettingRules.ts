@@ -1,5 +1,5 @@
 import {IERO, MarketStatus, IMarketRunner, IAvailable} from "./models/ERO";
-import {ILBR} from "./models/LBR";
+import {ILBR, IMarketSelection} from "./models/LBR";
 // import _ from "lodash"
 const _ = require("lodash");
 import {IEventTimeLine} from "./models/EventTimeLine";
@@ -15,6 +15,7 @@ export class BettingRules {
 
     public filterMarkets(ero: IERO, lbr: Array<ILBR>, wallet: IWallet, eventTimeLine: Map<number, IEventTimeLine>): any {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];
+        let marketsWithBets: number = 0;
 
         ero.eventTypes.forEach(eventType => {
             eventType.eventNodes.forEach(eventNode => {
@@ -29,6 +30,7 @@ export class BettingRules {
                     if (market.state.status === MarketStatus[MarketStatus.SUSPENDED]) {
                         return true;
                     }
+
                     if (market.state.totalMatched < this.minimumTotalMatch) {
                         return true;
                     }
@@ -49,16 +51,27 @@ export class BettingRules {
                     let backOverround = this.getBackOverround(r1, r2, r3);
                     let layOverround = this.getLayOverround(r1, r2, r3);
 
-                    console.log("back-lay overround" + backOverround + ' ' + layOverround);
-
                     if (backOverround > this.backOverround || layOverround < this.layOverround) {
+                        console.log(market.marketId + " back-lay overround " + backOverround + ' ' + layOverround);
                         return true;
                     }
 
                     /**
                      *              Already BET
                      */
-                    if (lbrMarket.selections.length > 0) {
+                    if (lbrMarket.selections.length > 0 && lbrMarket.selections.length === 1) {
+                        console.log("Already bet at " + market.marketId);
+                        marketsWithBets++;
+
+                        let matchedSelection = _.find(lbrMarket.selections, (lbrM: IMarketSelection) => {
+                            return runnerToBet.selectionId === lbrM.selectionId;
+                        });
+
+                        if (matchedSelection.selectionId !== runnerToBet.selectionId) {
+                            let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.exchange.availableToBack[0]);
+                            marketsToBet.push(m);
+                        }
+
                         return true;
                     }
 
@@ -74,13 +87,13 @@ export class BettingRules {
                     if (timeline.timeElapsed < 80) {
                         return true;
                     }
-// {"eventId":28104386,"eventTypeId":1,"score":{"home":{"name":"Tigres (Col)","score":"0","halfTimeScore":"","fullTimeScore":"","penaltiesScore":"","penaltiesSequence":[],"games":"","sets":"","quarterByQuarter":[0,0]},"away":{"name":"Deportivo Pasto","score":"1","halfTimeScore":"","fullTimeScore":"","penaltiesScore":"","penaltiesSequence":[],"games":"","sets":"","quarterByQuarter":[1,0]}},"timeElapsed":47,"updateDetails":[{"updateTime":"1970-01-01T00:00:00.000Z","matchTime":0,"type":"KickOff","updateType":"KickOff"},{"updateTime":"2017-02-14T22:04:42.018Z","team":"away","teamName":"Deportivo Pasto","player":"Y. Rivera","matchTime":45,"type":"Goal","updateType":"Goal"},{"updateTime":"1970-01-01T00:00:00.000Z","matchTime":0,"type":"FirstHalfEnd","updateType":"FirstHalfEnd"},{"updateTime":"1970-01-01T00:00:00.000Z","matchTime":0,"type":"SecondHalfKickOff","updateType":"SecondHalfKickOff"}],"status":"IN_PLAY","inPlayMatchStatus":"SecondHalfKickOff"}
+
                     // bet on draw
                     if (runnerToBet === r3) {
                         let deltaR1 = b3.price - b1.price;
                         let deltaR2 = b3.price - b2.price;
 
-                        if (deltaR1 < 0 && deltaR2 < 0 && Math.abs(deltaR1) > 2 && Math.abs(deltaR2) > 2) {
+                        if (timeline.timeElapsed > 85 && deltaR1 < 0 && deltaR2 < 0 && Math.abs(deltaR1) > 9 && Math.abs(deltaR2) > 9) {
                             console.log("BET ON DRAW");
                             wallet.details.amount = (availableToBet - 2).toString();
                             let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, r3.selectionId, r3.exchange.availableToBack[0]);
@@ -93,7 +106,7 @@ export class BettingRules {
                      * BET IN NORMAL CONDITIONS
                      */
                     let rToBetPrice = runnerToBet.exchange.availableToBack[0].price;
-                    if (Math.abs(b1.price - b2.price) > 8 && b3.price - rToBetPrice > 3) {
+                    if (Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 10) {
                         console.log("BET IN NORMAL CONDITIONS");
                         wallet.details.amount = (availableToBet - 2).toString();
                         let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.exchange.availableToBack[0]);
@@ -108,6 +121,10 @@ export class BettingRules {
                 })
             })
         });
+
+        if (marketsWithBets > 0) {
+            console.log("You have " + marketsWithBets + " active bets");
+        }
         return marketsToBet;
     }
 

@@ -16,6 +16,10 @@ export class Request {
             'X-Application': 'nzIFcwyWhrlwYMrh',
             "Accept": "application/json, text/plain",
             "Content-Type": "application/json;charset=UTF-8",
+            "Origin": "https://www.betfair.com",
+            "Referer": "https://www.betfair.com/exchange/plus/",
+            "Connection": "keep-alive",
+            "Accept-Encoding": "gzip",
             "X-Authentication": token,
             'Cookie': cookie
         };

@@ -4,6 +4,12 @@
 import {BettingService} from "./BettingService";
 import {Request, Response} from "express";
 import * as express from "express";
+import * as bodyParser from "body-parser";
+import * as cookieParser from "cookie-parser";
+import * as logger from "morgan";
+import * as path from "path";
+import errorHandler = require("errorhandler");
+import methodOverride = require("method-override");
 
 new BettingService().init();
 

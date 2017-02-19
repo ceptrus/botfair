@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   "use strict";
 
   grunt.initConfig({
@@ -40,19 +40,19 @@ module.exports = function(grunt) {
       //   ]
       // }
     },
-    typescript: {
-      base: {
-        src: ['src/*.ts'],
-        dest: './dist/',
-        options: {
-          module: 'commonjs', //or commonjs
-          target: 'es6', //or es3
-          basePath: 'node_modules/@types',
-          sourceMap: true,
-          declaration: true
-        }
-      }
-    },
+    // typescript: {
+    //   base: {
+    //     src: ['src/*.ts'],
+    //     dest: './dist/',
+    //     options: {
+    //       module: 'commonjs', //or commonjs
+    //       target: 'es6', //or es3
+    //       basePath: 'node_modules/@types',
+    //       sourceMap: true,
+    //       declaration: true
+    //     }
+    //   }
+    // },
     tslint: {
       options: {
         configuration: "tslint.json"
@@ -68,15 +68,29 @@ module.exports = function(grunt) {
         // tasks: ["typescript"]
         // tasks: ["ts", "tslint"]
       }
-    }
+    },
+    copy: {
+      build: {
+        files: [
+          {
+            expand: true,
+            cwd: "./public",
+            src: ["**"],
+            dest: "./dist/public"
+          }
+        ]
+      }
+    },
   });
 
-  grunt.loadNpmTasks('grunt-typescript');
+  // grunt.loadNpmTasks('grunt-typescript');
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-ts");
   grunt.loadNpmTasks("grunt-tslint");
 
   grunt.registerTask("default", [
+    "copy",
     "ts"
   ]);
 

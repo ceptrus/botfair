@@ -5,6 +5,7 @@ import {paths} from "../paths";
 import {IFacetedQuery} from "./models/Faceted";
 import {RequestHelper} from "./RequestHelper";
 import IPromise = Axios.IPromise;
+import * as logger from "morgan";
 import {IERO} from "./models/ERO";
 import {ILBR} from "./models/LBR";
 import {BettingRules} from "./BettingRules";
@@ -15,6 +16,7 @@ export class BettingService {
     private loginService: LoginService;
     private cron: CronJob;
     // private cronExpression: string = "1,10,20,30,40,50 * * * * *";
+    // private cronExpression: string = "0 */1 * * * *";
     // private cronExpression: string = "*/5 * * * * *";
     private cronExpression: string = "*/30 * * * * *";
 
@@ -49,12 +51,33 @@ export class BettingService {
                 .then((d) => console.log(d))
                 .catch(error => console.log(error));
         } catch (error) {
-            console.log("merda");
             console.error(JSON.stringify(error));
         }
     }
 
+    /**
+     * import * as logger from "morgan";
+     *
+     * $ npm install body-parser --save
+     $ npm install cookie-parser --save
+     $ npm install morgan --save
+     $ npm install errorhandler --save
+     $ npm install method-override --save
+     *
+     * $ npm install @types/body-parser --save-dev
+     $ npm install @types/cookie-parser --save-dev
+     $ npm install @types/morgan --save-dev
+     $ npm install @types/errorhandler --save-dev
+     $ npm install @types/method-override --save-dev
+     *
+     */
+
+
     private bet(bets: Array<Array<IETXPlaceBet>>): string {
+        if (bets === []) {
+            return "No markets found";
+        }
+
         let request = Request.getInstance();
 
         bets.forEach(bet => {
@@ -65,11 +88,19 @@ export class BettingService {
     }
 
     private filterWithBettingRules(data: any): any {
+        if (data === null) {
+            return null;
+        }
+
         let bettingRules: BettingRules = new BettingRules();
         return bettingRules.filterMarkets(data.ero, data.lbr, data.wallet, data.eventTimeLine);
     }
 
     private mergeAllData(values: Array<any>): any {
+        if (values === null) {
+            return null;
+        }
+
         let ero: IERO = values[0];
         let lbr: Array<ILBR> = values[1];
         let wallet: IWallet = values[2];
@@ -89,11 +120,15 @@ export class BettingService {
     }
 
     private getEventTimeline(values: Array<any>): any {
+        if (values === null) {
+            return null;
+        }
+
         let ero: IERO = values[0].data;
         let lbr: Array<ILBR> = values[1].data;
         let wallet: IWallet = values[2].data[0];
         let request = Request.getInstance();
-
+console.log("Cash: " + wallet.details.amount);
         let eventTimeline: Array<IPromise<any>> = [];
         eventTimeline.push(Promise.resolve(ero), Promise.resolve(lbr), Promise.resolve(wallet));
 
@@ -110,6 +145,15 @@ export class BettingService {
         let request = Request.getInstance();
 
         console.log("Found " + markets.length + " inplay markets");
+
+        if (markets.length === 0) {
+            return null;
+        }
+        /**
+         *
+         * ERROR check for when markets.length === 0
+         *
+         */
 
         let ero: IPromise<any> = request.get(paths.getERO(markets));
         let lbr: IPromise<any> = request.get(paths.getLBR(markets));
