@@ -74,8 +74,8 @@ export class BettingService {
 
 
     private bet(bets: Array<Array<IETXPlaceBet>>): string {
-        if (bets === []) {
-            return "No markets found";
+        if (bets.length === 0) {
+            return "No markets to bet";
         }
 
         let request = Request.getInstance();
