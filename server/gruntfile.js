@@ -90,7 +90,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-tslint");
 
   grunt.registerTask("default", [
-    "copy",
+    // "copy",
     "ts"
   ]);
 
