@@ -74,7 +74,7 @@ export class BettingService {
 
 
     private bet(bets: Array<Array<IETXPlaceBet>>): string {
-        if (bets.length === 0) {
+        if (bets === null) {
             return "No markets to bet";
         }
 

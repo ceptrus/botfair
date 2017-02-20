@@ -83,7 +83,7 @@
   },
   "scripts": {
     "start": "cd server && concurrently \"grunt watch\" \"nodemon www\"",
-//    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "node client/scripts/start.js",
     "server": "node server/server.ts",
     "build": "node scripts/build.js",
