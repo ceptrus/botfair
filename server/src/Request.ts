@@ -72,7 +72,8 @@ export class Request {
                 let cookie = _.find(data.headers["set-cookie"], (header: string) => {
                     return header.indexOf("ssoid") !== -1
                 });
-
+console.log(data.data);
+console.log(data.headers);
                 let html:string = data.data;
                 let start = html.indexOf("name=\"productToken\"") + 27;
                 let token = html.substr(start, 44);
