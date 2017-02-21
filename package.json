@@ -89,7 +89,7 @@
     "react-router": "^3.0.0"
   },
   "scripts": {
-    "start": "pwd && cd server node www",
+    "start": "node server/www",
     "dev-server": "cd server && concurrently \"grunt watch\" \"nodemon www\"",
     "postinstall": "echo postinstall time; cd server && pwd && npm i && grunt ts --force",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
