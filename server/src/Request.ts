@@ -58,9 +58,13 @@ export class Request {
             headers: {
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Cookie": "wsid=cb7ec5a1-ec84-11e6-884d-90e2ba0fa6a0; language=en; exp=ex; vid=bc6f5ff3-74b0-4a1e-b6fd-319ee8682dbc;"
+                'X-Application': 'nzIFcwyWhrlwYMrh',
+                "Origin": "https://www.betfair.com",
+                "Referer": "https://www.betfair.com/exchange/plus/",
+                "Accept-Encoding": "gzip",
             }
         };
+                // "Cookie": "wsid=cb7ec5a1-ec84-11e6-884d-90e2ba0fa6a0; language=en; exp=ex; vid=bc6f5ff3-74b0-4a1e-b6fd-319ee8682dbc;"
 
         // axios.interceptors.response.use(response => {
         //     // console.log('Response:', JSON.stringify(response.data));
