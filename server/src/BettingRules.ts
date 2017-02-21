@@ -52,7 +52,6 @@ export class BettingRules {
                     let layOverround = this.getLayOverround(r1, r2, r3);
 
                     if (backOverround > this.backOverround || layOverround < this.layOverround) {
-                        console.log(market.marketId + " back-lay overround " + backOverround + ' ' + layOverround);
                         return true;
                     }
 
@@ -77,23 +76,23 @@ export class BettingRules {
 
                     let timeline: IEventTimeLine = eventTimeLine.get(eventNode.eventId);
                     /**
-                     *				BET ON DRAW
+                     *                BET ON DRAW
                      **/
                     let b1 = this.getBack(r1);
                     let b2 = this.getBack(r2);
                     let b3 = this.getBack(r3);
 
-                    // if (timeline.elapsedRegularTime < 30) {
-                    if (timeline.timeElapsed < 80) {
-                        return true;
-                    }
+                    // if (timeline.timeElapsed < 65) {
+                    //     return true;
+                    // }
 
                     // bet on draw
                     if (runnerToBet === r3) {
                         let deltaR1 = b3.price - b1.price;
                         let deltaR2 = b3.price - b2.price;
 
-                        if (timeline.timeElapsed > 85 && deltaR1 < 0 && deltaR2 < 0 && Math.abs(deltaR1) > 9 && Math.abs(deltaR2) > 9) {
+                        if ((timeline.timeElapsed > 60 && deltaR1 < 0 && deltaR2 < 0 && Math.abs(deltaR1) > 15 && Math.abs(deltaR2) > 15) ||
+                            (timeline.timeElapsed > 80 && deltaR1 < 0 && deltaR2 < 0 && Math.abs(deltaR1) > 10 && Math.abs(deltaR2) > 10)) {
                             console.log("BET ON DRAW");
                             wallet.details.amount = (availableToBet - 2).toString();
                             let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, r3.selectionId, r3.exchange.availableToBack[0]);
@@ -106,7 +105,7 @@ export class BettingRules {
                      * BET IN NORMAL CONDITIONS
                      */
                     let rToBetPrice = runnerToBet.exchange.availableToBack[0].price;
-                    if (Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 10) {
+                    if (Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
                         console.log("BET IN NORMAL CONDITIONS");
                         wallet.details.amount = (availableToBet - 2).toString();
                         let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.exchange.availableToBack[0]);
