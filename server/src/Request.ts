@@ -66,17 +66,17 @@ export class Request {
         };
                 // "Cookie": "wsid=cb7ec5a1-ec84-11e6-884d-90e2ba0fa6a0; language=en; exp=ex; vid=bc6f5ff3-74b0-4a1e-b6fd-319ee8682dbc;"
 
-        // axios.interceptors.response.use(response => {
-        //     // console.log('Response:', JSON.stringify(response.data));
-        //     console.log('Response:', response);
-        //     return response;
-        // });
+        axios.interceptors.request.use(response => {
+            // console.log('Response:', JSON.stringify(response.data));
+            console.log('Response:', response);
+            return response;
+        });
         return axios.post(paths.urlLogin, querystring.stringify(data), axiosConfig)
             .then((data: AxiosXHR<any>) => {
                 let cookie = _.find(data.headers["set-cookie"], (header: string) => {
                     return header.indexOf("ssoid") !== -1
                 });
-console.log(data.data);
+// console.log(data.data);
 console.log(data.headers);
                 let html:string = data.data;
                 let start = html.indexOf("name=\"productToken\"") + 27;
