@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "concurrently \"grunt watch\" \"nodemon www\"",
+    "start": "node www",
     "dev": "concurrently \"grunt watch\" \"node www\"",
     "grunt": "grunt",
     "server": "node ./www"
