@@ -22,6 +22,7 @@ export class LoginService {
     }
 
     private init() {
+        console.log(process.env.USERNAME);
         const userName = process.env.USERNAME;
         const password = process.env.PASSWORD;
 
