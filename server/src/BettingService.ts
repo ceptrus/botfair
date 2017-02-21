@@ -18,7 +18,7 @@ export class BettingService {
     // private cronExpression: string = "1,10,20,30,40,50 * * * * *";
     // private cronExpression: string = "0 */1 * * * *";
     // private cronExpression: string = "*/5 * * * * *";
-    private cronExpression: string = "*/30 * * * * *";
+    private cronExpression: string = "20,40,60 * * * * *";
 
     constructor() {
         console.log("BettingService started!");
