@@ -62,11 +62,17 @@ export class Request {
                 "Origin": "https://www.betfair.com",
                 "Referer": "https://www.betfair.com/exchange/plus/",
                 "Accept-Encoding": "gzip",
+                "Access-Control-Allow-Origin": "*",
+                "Cookie": "wsid=cb7ec5a1-ec84-11e6-884d-90e2ba0fa6a0; language=en; exp=ex; vid=bc6f5ff3-74b0-4a1e-b6fd-319ee8682dbc;"
             }
         };
-                // "Cookie": "wsid=cb7ec5a1-ec84-11e6-884d-90e2ba0fa6a0; language=en; exp=ex; vid=bc6f5ff3-74b0-4a1e-b6fd-319ee8682dbc;"
 
         axios.interceptors.request.use(response => {
+            // console.log('Response:', JSON.stringify(response.data));
+            console.log('Request:', response);
+            return response;
+        });
+        axios.interceptors.response.use(response => {
             // console.log('Response:', JSON.stringify(response.data));
             console.log('Response:', response);
             return response;
