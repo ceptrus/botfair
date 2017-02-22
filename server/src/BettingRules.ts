@@ -23,7 +23,7 @@ export class BettingRules {
                     let lbrMarket = this.getLBR(lbr, market.marketId);
 
                     let availableToBet: number = parseFloat(wallet.details.amount);
-                    if (availableToBet <= 2.0) {
+                    if (availableToBet <= 3.0) {
                         return true;
                     }
 
@@ -58,17 +58,20 @@ export class BettingRules {
                     /**
                      *              Already BET
                      */
+                    if (lbrMarket.selections.length >= 2) {
+                        return true;
+                    }
+
                     if (lbrMarket.selections.length > 0 && lbrMarket.selections.length === 1) {
                         console.log("Already bet at " + market.marketId);
                         marketsWithBets++;
 
-                        let matchedSelection = _.find(lbrMarket.selections, (lbrM: IMarketSelection) => {
-                            return runnerToBet.selectionId === lbrM.selectionId;
-                        });
+                        let matchedSelection = lbrMarket.selections[0].orders[0];
 
                         if (matchedSelection.selectionId !== runnerToBet.selectionId) {
                             let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.exchange.availableToBack[0]);
                             marketsToBet.push(m);
+                            console.log("Counter bet " + matchedSelection.marketId);
                         }
 
                         return true;
@@ -171,9 +174,9 @@ export class BettingRules {
     private hasMoney(runner: IMarketRunner): boolean {
         if (runner && runner.exchange && runner.exchange.availableToBack && runner.exchange.availableToBack.length > 0
             && runner.exchange.availableToLay && runner.exchange.availableToLay.length > 0) {
-            if (runner.exchange.availableToBack[0].size >= this.minAvailableMoneyToBet) {
+            // if (runner.exchange.availableToBack[0].size >= this.minAvailableMoneyToBet) {
                 return true;
-            }
+            // }
         }
         return false;
     }
