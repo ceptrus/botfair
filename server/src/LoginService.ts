@@ -25,9 +25,6 @@ export class LoginService {
         const userName = process.env.USERNAME;
         const password = process.env.PASSWORD;
 
-        console.log(process.env.USERNAME);
-        console.log(process.env.PASSWORD);
-
         return Request.login(userName, password)
             .then(() => {
                 console.info("KeepAlive Cron Start");
