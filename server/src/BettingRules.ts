@@ -78,6 +78,10 @@ export class BettingRules {
                     }
 
                     let timeline: IEventTimeLine = eventTimeLine.get(eventNode.eventId);
+                    if (!timeline) {
+                        return true;
+                    }
+
                     /**
                      *                BET ON DRAW
                      **/
@@ -108,7 +112,7 @@ export class BettingRules {
                      * BET IN NORMAL CONDITIONS
                      */
                     let rToBetPrice = runnerToBet.exchange.availableToBack[0].price;
-                    if (Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
+                    if (timeline.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
                         console.log("BET IN NORMAL CONDITIONS");
                         wallet.details.amount = (availableToBet - 2).toString();
                         let m: Array<IETXPlaceBet> = RequestHelper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.exchange.availableToBack[0]);
