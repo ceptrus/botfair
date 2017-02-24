@@ -17,7 +17,7 @@ export class RequestHelper {
                     orderType: "LIMIT",
                     side: IBetSide[IBetSide.BACK],
                     limitOrder: {
-                        size: 3,
+                        size: 4,
                         price: 1.01, //
                         // price: price.price.toFixed(2),
                         persistenceType: "LAPSE"
