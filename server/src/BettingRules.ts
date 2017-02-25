@@ -22,7 +22,7 @@ export class BettingRules {
                 eventNode.marketNodes.forEach(market => {
                     let lbrMarket = this.getLBR(lbr, market.marketId);
 
-        marketsWithBets = lbrMarket.selections.length;
+        marketsWithBets += lbrMarket.selections.length;
                     let availableToBet: number = parseFloat(wallet.details.amount);
                     if (availableToBet <= 3.0) {
                         return true;
