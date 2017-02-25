@@ -22,6 +22,7 @@ export class BettingRules {
                 eventNode.marketNodes.forEach(market => {
                     let lbrMarket = this.getLBR(lbr, market.marketId);
 
+        marketsWithBets = lbrMarket.selections.length;
                     let availableToBet: number = parseFloat(wallet.details.amount);
                     if (availableToBet <= 3.0) {
                         return true;
@@ -64,7 +65,7 @@ export class BettingRules {
 
                     if (lbrMarket.selections.length > 0 && lbrMarket.selections.length === 1) {
                         console.log("Already bet at " + market.marketId);
-                        marketsWithBets++;
+               //         marketsWithBets++;
 
                         let matchedSelection = lbrMarket.selections[0].orders[0];
 
