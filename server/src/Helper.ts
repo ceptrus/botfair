@@ -62,8 +62,8 @@ export class Helper {
         }
 
         return {
-            availableToBack: _.cloneDeep(runner.exchange.availableToBack),
-            availableToLay: _.cloneDeep(runner.exchange.availableToLay),
+            availableToBack: runner.exchange.availableToBack,
+            availableToLay: runner.exchange.availableToLay,
             runnerName: runner.description.runnerName,
             selectionId: runner.selectionId,
             score: score
