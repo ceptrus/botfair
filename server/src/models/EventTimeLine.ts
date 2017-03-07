@@ -19,7 +19,7 @@ export interface IEventTimeLine {
     inPlayMatchStatus: EventTimeLineMatchStatus;
 }
 
-interface IEventTimeLineScore {
+export interface IEventTimeLineScore {
     name: string;
     score: string;
     halfTimeScore: string;

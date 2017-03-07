@@ -14,7 +14,7 @@ interface IEventNode {
     marketNodes: Array<IMarketNode>;
 }
 
-interface IMarketNode {
+export interface IMarketNode {
     marketId: string;
     isMarketDataDelayed: boolean;
     highWaterMark: string;

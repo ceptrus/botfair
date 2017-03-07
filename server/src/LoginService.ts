@@ -1,15 +1,10 @@
 import {CronJob} from "cron";
 import {Request} from "./Request";
-import AxiosXHR = Axios.AxiosXHR;
 import IPromise = Axios.IPromise;
 
 export class LoginService {
     private cron: CronJob;
     private cronExpression: string = "0 0 */1 * * *";
-
-    // constructor() {
-    //     console.log("LoginService started!");
-    // }
 
     public startAuthentication(): IPromise<any> {
         console.log("LoginService started!");

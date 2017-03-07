@@ -3,7 +3,6 @@ import {LoginService} from "./LoginService";
 import {Request} from "./Request";
 import {paths} from "../paths";
 import {IFacetedQuery} from "./models/Faceted";
-import {RequestHelper} from "./RequestHelper";
 import IPromise = Axios.IPromise;
 import * as logger from "morgan";
 import {IERO} from "./models/ERO";
@@ -11,6 +10,7 @@ import {ILBR} from "./models/LBR";
 import {BettingRules} from "./BettingRules";
 import {IEventTimeLine} from "./models/EventTimeLine";
 import {IETXPlaceBet} from "./models/ETX";
+import {Helper} from "./Helper";
 
 export class BettingService {
     private loginService: LoginService;
@@ -38,13 +38,13 @@ export class BettingService {
     private work(): void {
         try {
             let request = Request.getInstance();
-            let facetedQuery: IFacetedQuery = RequestHelper.getFacetedQuery();
+            let facetedQuery: IFacetedQuery = Helper.getFacetedQuery();
 
             Promise.resolve()
                 .then(() => request.post(paths.urlFacet, facetedQuery))
                 .then(this.extractFacetedIds)
                 .then(this.requestMarketData)
-                .then(this.getEventTimeline)
+                .then(this.getEventTimeLine)
                 .then(this.mergeAllData)
                 .then(this.filterWithBettingRules)
                 .then(this.bet)
@@ -93,7 +93,7 @@ export class BettingService {
         }
 
         let bettingRules: BettingRules = new BettingRules();
-        return bettingRules.filterMarkets(data.ero, data.lbr, data.wallet, data.eventTimeLine);
+        return bettingRules.filterMarkets(data.markets, data.wallet);
     }
 
     private mergeAllData(values: Array<any>): any {
@@ -112,14 +112,12 @@ export class BettingService {
         }
 
         return {
-            ero: ero,
-            lbr: lbr,
-            wallet: wallet,
-            eventTimeLine: eventTimeLine
-        }
+            markets: Helper.mergeDataObjects(ero, lbr, eventTimeLine),
+            wallet: wallet
+        };
     }
 
-    private getEventTimeline(values: Array<any>): any {
+    private getEventTimeLine(values: Array<any>): any {
         if (values === null) {
             return null;
         }
@@ -128,7 +126,9 @@ export class BettingService {
         let lbr: Array<ILBR> = values[1].data;
         let wallet: IWallet = values[2].data[0];
         let request = Request.getInstance();
-console.log("Cash: " + wallet.details.amount);
+
+        console.log("Cash: " + wallet.details.amount);
+
         let eventTimeline: Array<IPromise<any>> = [];
         eventTimeline.push(Promise.resolve(ero), Promise.resolve(lbr), Promise.resolve(wallet));
 
