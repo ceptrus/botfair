@@ -1,9 +1,9 @@
 import {IFacetedQuery, IProductType, IFacetedQuerySelectBy, CurrencyCode} from "./models/Faceted";
 import {IETXPlaceBet, IBetSide} from "./models/ETX";
 import {IERO, IMarketNode, IMarketRunner} from "./models/ERO";
-import {ILBR, IMarketSelection} from "./models/LBR";
+import {ILBR, IMarketSelection, IMarketMatch} from "./models/LBR";
 import {IEventTimeLine, IEventTimeLineScore} from "./models/EventTimeLine";
-import {IMergedData, IRunnerInfo, IRunnerScore, IBetInfo} from "./models/MergedObject";
+import {IMarket, IRunnerInfo, IRunnerScore, IBetInfo} from "./models/Market";
 import * as _ from "lodash";
 let moment = require("moment");
 
@@ -15,20 +15,20 @@ enum IRunnerEnum {
 
 export class Helper {
 
-    public static mergeDataObjects(ero: IERO, lbrs: Array<ILBR>, timelines: Map<number, IEventTimeLine>): Array<IMergedData> {
-        let markets: Array<IMergedData> = [];
-        
+    public static mergeDataObjects(ero: IERO, lbrs: Array<ILBR>, timeLines: Map<number, IEventTimeLine>): Array<IMarket> {
+        let markets: Array<IMarket> = [];
+
         ero.eventTypes.forEach(eventType => {
             eventType.eventNodes.forEach(eventNode => {
                 eventNode.marketNodes.forEach((market: IMarketNode) => {
                     let lbrMarket = this.getLBRMarket(lbrs, market.marketId);
-                    let timeLine: IEventTimeLine = timelines.get(eventNode.eventId);
+                    let timeLine: IEventTimeLine = timeLines.get(eventNode.eventId);
 
                     let timeElapsed: number = timeLine.timeElapsed ? timeLine.timeElapsed : null;
                     let bets = this.getBets(lbrMarket);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
-                    let mergedData: IMergedData = {
+                    let mergedData: IMarket = {
                         marketId: market.marketId,
                         eventTypeId: eventType.eventTypeId,
                         timeElapsed: timeElapsed,
@@ -38,7 +38,7 @@ export class Helper {
                             totalMatched: market.state.totalMatched,
                         },
                         eventId: eventNode.eventId,
-                        date: Date.now(),
+                        cashedOut: false,
                         runnerA: this.getRunnerData(IRunnerEnum.RunnerA, market, timeLine),
                         runnerB: this.getRunnerData(IRunnerEnum.RunnerB, market, timeLine),
                         runnerDraw: this.getRunnerData(IRunnerEnum.RunnerDraw, market, timeLine),
@@ -50,7 +50,7 @@ export class Helper {
                 });
             });
         });
-        
+
         return markets;
     }
 
@@ -77,7 +77,7 @@ export class Helper {
         let bets: Array<IBetInfo> = [];
 
         _.forEach(lbrMarket.selections, (selection: IMarketSelection) => {
-            _.forEach(selection.matches, match => {
+            _.forEach(selection.matches, (match: IMarketMatch) => {
                 let bet: IBetInfo = {
                     selectionId: selection.selectionId,
                     betId: match.betId,

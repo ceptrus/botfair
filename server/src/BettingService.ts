@@ -55,24 +55,6 @@ export class BettingService {
         }
     }
 
-    /**
-     * import * as logger from "morgan";
-     *
-     * $ npm install body-parser --save
-     $ npm install cookie-parser --save
-     $ npm install morgan --save
-     $ npm install errorhandler --save
-     $ npm install method-override --save
-     *
-     * $ npm install @types/body-parser --save-dev
-     $ npm install @types/cookie-parser --save-dev
-     $ npm install @types/morgan --save-dev
-     $ npm install @types/errorhandler --save-dev
-     $ npm install @types/method-override --save-dev
-     *
-     */
-
-
     private bet(bets: Array<Array<IETXPlaceBet>>): string {
         if (bets === null) {
             return "No markets to bet";
@@ -87,7 +69,7 @@ export class BettingService {
         return "done";
     }
 
-    private filterWithBettingRules(data: any): any {
+    private filterWithBettingRules(data: any): Array<Array<IETXPlaceBet>> {
         if (data === null) {
             return null;
         }
@@ -149,11 +131,6 @@ export class BettingService {
         if (markets.length === 0) {
             return null;
         }
-        /**
-         *
-         * ERROR check for when markets.length === 0
-         *
-         */
 
         let ero: IPromise<any> = request.get(paths.getERO(markets));
         let lbr: IPromise<any> = request.get(paths.getLBR(markets));

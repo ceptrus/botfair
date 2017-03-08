@@ -14,18 +14,20 @@ export interface ILBR {
 export interface IMarketSelection {
     selectionId: number;
     orders: Array<IMarketOrder>;
-    matches: [{
-        betId: string;
-        matchId: string;
-        price: number;
-        size: number;
-        matchDate: string;
-        isBSP: boolean;
-        side: IBetSide;
-    }]
+    matches: Array<IMarketMatch>;
 }
 
-interface IMarketOrder {
+export interface IMarketMatch {
+    betId: string;
+    matchId: string;
+    price: number;
+    size: number;
+    matchDate: string;
+    isBSP: boolean;
+    side: IBetSide;
+}
+
+export interface IMarketOrder {
     betId: string;
     marketId: string;
     selectionId: number;

@@ -1,7 +1,7 @@
 import {MarketStatus, IAvailable} from "./models/ERO";
 import {IETXPlaceBet} from "./models/ETX";
 import {Helper} from "./Helper";
-import {IMergedData, IRunnerInfo} from "./models/MergedObject";
+import {IMarket, IRunnerInfo} from "./models/Market";
 
 export class BettingRules {
 
@@ -9,17 +9,17 @@ export class BettingRules {
     private backOverRound: number = 107;
     private layOverRound: number = 95;
 
-    private BET_SIZE: number = 4;
+    private BET_SIZE: number = 3;
 
-    public filterMarkets(markets: Array<IMergedData>, wallet: IWallet): any {
+    public filterMarkets(markets: Array<IMarket>, wallet: IWallet): Array<Array<IETXPlaceBet>> {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];
         let marketsWithBets: number = 0;
+        let availableToBet: number = parseFloat(wallet.details.amount);
 
-        markets.forEach((market: IMergedData) => {
+        markets.forEach((market: IMarket) => {
             marketsWithBets += market.distinctBets;
 
-            let availableToBet: number = parseFloat(wallet.details.amount);
-            if (availableToBet <= 3.0) {
+            if (availableToBet < this.BET_SIZE) {
                 return true;
             }
 
@@ -44,29 +44,34 @@ export class BettingRules {
                 return true;
             }
 
-            let backOverRound = this.getBackOverround(r1, r2, r3);
-            let layOverRound = this.getLayOverround(r1, r2, r3);
+            let backOverRound = this.getBackOverRound(r1, r2, r3);
+            let layOverRound = this.getLayOverRound(r1, r2, r3);
 
             if (backOverRound > this.backOverRound || layOverRound < this.layOverRound) {
                 return true;
             }
 
             /**
-             *              Already BET
+             * Already BET
              */
             if (market.distinctBets >= 2) {
                 return true;
             }
 
+            /**
+             * SHOULD CASHOUT HERE
+             * market.cashedOut = true;
+             */
+
             if (market.distinctBets > 0 && market.distinctBets === 1) {
                 let matchedSelection = market.bets[0];
 
                 if (matchedSelection.selectionId !== runnerToBet.selectionId) {
+                    wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
                     let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
                     marketsToBet.push(m);
                     console.log("Counter bet " + market.marketId);
                 }
-
                 return true;
             }
 
@@ -75,15 +80,11 @@ export class BettingRules {
             }
 
             /**
-             *                BET ON DRAW
+             * BET ON DRAW
              **/
             let b1 = this.getBack(r1);
             let b2 = this.getBack(r2);
             let b3 = this.getBack(r3);
-
-            // if (timeline.timeElapsed < 65) {
-            //     return true;
-            // }
 
             // bet on draw
             if (runnerToBet === r3) {
@@ -95,7 +96,7 @@ export class BettingRules {
 
                     console.log("BET ON DRAW");
 
-                    wallet.details.amount = (availableToBet - 2).toString();
+                    wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
                     let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, r3.selectionId, this.BET_SIZE);
                     marketsToBet.push(m);
                     return true;
@@ -109,29 +110,32 @@ export class BettingRules {
             if (market.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
                 console.log("BET IN NORMAL CONDITIONS");
 
-                wallet.details.amount = (availableToBet - 2).toString();
+                wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
                 let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
                 marketsToBet.push(m);
                 return true;
             }
 
             /**
-             * FINISH FOR NOW
+             * SAVE DATA
              */
 
+
+
+            /**
+             * FINISH FOR NOW
+             */
         });
 
-        if (marketsWithBets > 0) {
-            console.log("You have " + marketsWithBets + " active bets");
-        }
+        console.log("You have " + marketsWithBets + " active bets");
         return marketsToBet;
     }
 
-    private getBackOverround(r1: IRunnerInfo, r2: IRunnerInfo, r3: IRunnerInfo): number {
+    private getBackOverRound(r1: IRunnerInfo, r2: IRunnerInfo, r3: IRunnerInfo): number {
         return (1 / this.getBack(r1).price + 1 / this.getBack(r2).price + 1 / this.getBack(r3).price) * 100;
     };
 
-    private getLayOverround = function (r1: IRunnerInfo, r2: IRunnerInfo, r3: IRunnerInfo): number {
+    private getLayOverRound = function (r1: IRunnerInfo, r2: IRunnerInfo, r3: IRunnerInfo): number {
         return (1 / this.getLay(r1).price + 1 / this.getLay(r2).price + 1 / this.getLay(r3).price) * 100;
     };
 

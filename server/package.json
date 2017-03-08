@@ -10,7 +10,9 @@
   },
   "author": "",
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "^1.15.0",
+    "cron": "^1.2.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "grunt": "^0.4.5",
@@ -21,13 +23,12 @@
     "grunt-tslint": "^3.0.3",
     "grunt-typescript": "^0.8.0",
     "jade": "^1.11.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "promise": "7.1.1",
     "querystring": "^0.2.0",
     "tslint": "^3.6.0",
     "typescript": "^1.8.9",
-    "lodash": "^4.17.2",
-    "cron": "^1.1.1",
-    "moment": "^2.17.0",
-    "axios": "^0.15.3",
     "typings": "^0.7.9"
   },
   "devDependencies": {
@@ -44,7 +45,6 @@
     "@types/react-router": "^2.0.39",
     "concurrently": "^3.1.0",
     "nodemon": "^1.11.0",
-    "promise": "7.1.1",
     "tslint": "^3.15.1"
   }
 }

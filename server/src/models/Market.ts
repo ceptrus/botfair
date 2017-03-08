@@ -1,12 +1,12 @@
 import {IAvailable} from "./ERO";
 import {IBetSide} from "./ETX";
 
-export interface IMergedData {
+export interface IMarket {
     marketId: string;
     eventId: number;
     eventTypeId: number;
     competitionId: number;
-    date: number;
+    cashedOut: boolean;
     runnerA: IRunnerInfo;
     runnerB: IRunnerInfo;
     runnerDraw: IRunnerInfo;
@@ -40,4 +40,10 @@ export interface IRunnerScore {
     name: string;
     score: string;
     halfTimeScore: string;
+}
+
+export interface IMongoMarket {
+    marketId: string;
+    date: number;
+    markets: Array<IMarket>;
 }
