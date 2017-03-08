@@ -25,6 +25,8 @@ export class Helper {
                     let timeLine: IEventTimeLine = timelines.get(eventNode.eventId);
 
                     let timeElapsed: number = timeLine.timeElapsed ? timeLine.timeElapsed : null;
+                    let bets = this.getBets(lbrMarket);
+                    let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
                     let mergedData: IMergedData = {
                         marketId: market.marketId,
@@ -40,7 +42,8 @@ export class Helper {
                         runnerA: this.getRunnerData(IRunnerEnum.RunnerA, market, timeLine),
                         runnerB: this.getRunnerData(IRunnerEnum.RunnerB, market, timeLine),
                         runnerDraw: this.getRunnerData(IRunnerEnum.RunnerDraw, market, timeLine),
-                        bets: this.getBets(lbrMarket),
+                        bets: bets,
+                        distinctBets: distinctBets,
                     };
 
                     markets.push(mergedData);

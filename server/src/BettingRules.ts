@@ -14,7 +14,7 @@ export class BettingRules {
         let marketsWithBets: number = 0;
 
         markets.forEach((market: IMergedData) => {
-            marketsWithBets += market.bets.length;
+            marketsWithBets += market.distinctBets;
 
             let availableToBet: number = parseFloat(wallet.details.amount);
             if (availableToBet <= 3.0) {
@@ -52,13 +52,11 @@ export class BettingRules {
             /**
              *              Already BET
              */
-            if (market.bets.length >= 2) {
+            if (market.distinctBets >= 2) {
                 return true;
             }
 
-            if (market.bets.length > 0 && market.bets.length === 1) {
-                console.log("Already bet at " + market.marketId);
-
+            if (market.distinctBets > 0 && market.distinctBets === 1) {
                 let matchedSelection = market.bets[0];
 
                 if (matchedSelection.selectionId !== runnerToBet.selectionId) {
@@ -108,6 +106,7 @@ export class BettingRules {
             let rToBetPrice = runnerToBet.availableToBack[0].price;
             if (market.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
                 console.log("BET IN NORMAL CONDITIONS");
+
                 wallet.details.amount = (availableToBet - 2).toString();
                 let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.availableToBack[0].size);
                 marketsToBet.push(m);

@@ -11,6 +11,7 @@ export interface IMergedData {
     runnerB: IRunnerInfo;
     runnerDraw: IRunnerInfo;
     bets: Array<IBetInfo>;
+    distinctBets: number;
     timeElapsed: number;
     state: {
         status: string;
