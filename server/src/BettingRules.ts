@@ -9,6 +9,8 @@ export class BettingRules {
     private backOverRound: number = 107;
     private layOverRound: number = 95;
 
+    private BET_SIZE: number = 4;
+
     public filterMarkets(markets: Array<IMergedData>, wallet: IWallet): any {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];
         let marketsWithBets: number = 0;
@@ -60,7 +62,7 @@ export class BettingRules {
                 let matchedSelection = market.bets[0];
 
                 if (matchedSelection.selectionId !== runnerToBet.selectionId) {
-                    let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.availableToBack[0].size);
+                    let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
                     marketsToBet.push(m);
                     console.log("Counter bet " + market.marketId);
                 }
@@ -94,7 +96,7 @@ export class BettingRules {
                     console.log("BET ON DRAW");
 
                     wallet.details.amount = (availableToBet - 2).toString();
-                    let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, r3.selectionId, r3.availableToBack[0].size);
+                    let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, r3.selectionId, this.BET_SIZE);
                     marketsToBet.push(m);
                     return true;
                 }
@@ -108,7 +110,7 @@ export class BettingRules {
                 console.log("BET IN NORMAL CONDITIONS");
 
                 wallet.details.amount = (availableToBet - 2).toString();
-                let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, runnerToBet.availableToBack[0].size);
+                let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
                 marketsToBet.push(m);
                 return true;
             }
