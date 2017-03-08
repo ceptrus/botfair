@@ -24,7 +24,7 @@ export class Helper {
                     let lbrMarket = this.getLBRMarket(lbrs, market.marketId);
                     let timeLine: IEventTimeLine = timeLines.get(eventNode.eventId);
 
-                    let timeElapsed: number = timeLine.timeElapsed ? timeLine.timeElapsed : null;
+                    let timeElapsed: number = timeLine ? timeLine.timeElapsed : null;
                     let bets = this.getBets(lbrMarket);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
