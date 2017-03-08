@@ -58,10 +58,12 @@ export class Helper {
         let runner: IMarketRunner = marketNode.runners[runnerIndex];
 
         let score: IRunnerScore = null;
-        if (runnerIndex === 0) {
-            score = this.getScore(timeLine.score.home);
-        } else if (runnerIndex === 1) {
-            score = this.getScore(timeLine.score.away);
+        if (timeLine) {
+            if (runnerIndex === 0) {
+                score = this.getScore(timeLine.score.home);
+            } else if (runnerIndex === 1) {
+                score = this.getScore(timeLine.score.away);
+            }
         }
 
         return {
