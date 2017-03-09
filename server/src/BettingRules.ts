@@ -9,7 +9,7 @@ export class BettingRules {
     private backOverRound: number = 107;
     private layOverRound: number = 95;
 
-    private BET_SIZE: number = 3;
+    private BET_SIZE: number = 4;
 
     public filterMarkets(markets: Array<IMarket>, wallet: IWallet): Array<Array<IETXPlaceBet>> {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];

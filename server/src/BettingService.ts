@@ -11,14 +11,13 @@ import {BettingRules} from "./BettingRules";
 import {IEventTimeLine} from "./models/EventTimeLine";
 import {IETXPlaceBet} from "./models/ETX";
 import {Helper} from "./Helper";
+import {MongoService} from "./MongoService";
 
 export class BettingService {
     private loginService: LoginService;
     private cron: CronJob;
-    // private cronExpression: string = "1,10,20,30,40,50 * * * * *";
-    // private cronExpression: string = "0 */1 * * * *";
-    // private cronExpression: string = "*/5 * * * * *";
     private cronExpression: string = "20,40,60 * * * * *";
+    private mongoService: MongoService;
 
     constructor() {
         console.log("BettingService started!");
@@ -28,11 +27,13 @@ export class BettingService {
         this.loginService = new LoginService();
 
         this.loginService.startAuthentication().then(() => {
+            this.mongoService = new MongoService();
             this.cron = new CronJob(this.cronExpression, this.work.bind(this), null, true);
             // this.work();
         }).catch((error: string) => {
             console.error(error);
         });
+        console.log("work done");
     }
 
     private work(): void {
@@ -46,6 +47,7 @@ export class BettingService {
                 .then(this.requestMarketData)
                 .then(this.getEventTimeLine)
                 .then(this.mergeAllData)
+                .then(this.saveMarkets.bind(this))
                 .then(this.filterWithBettingRules)
                 .then(this.bet)
                 .then((d) => console.log(d))
@@ -76,6 +78,21 @@ export class BettingService {
 
         let bettingRules: BettingRules = new BettingRules();
         return bettingRules.filterMarkets(data.markets, data.wallet);
+    }
+
+    private saveMarkets(data: any): any {
+        if (data === null) {
+            return null;
+        }
+
+        if (process.env.SAVE_MONGO) {
+            this.mongoService.saveMarket(data.markets)
+        }
+
+        return {
+            markets: data.markets,
+            wallet: data.wallet
+        };
     }
 
     private mergeAllData(values: Array<any>): any {
@@ -111,16 +128,16 @@ export class BettingService {
 
         console.log("Cash: " + wallet.details.amount);
 
-        let eventTimeline: Array<IPromise<any>> = [];
-        eventTimeline.push(Promise.resolve(ero), Promise.resolve(lbr), Promise.resolve(wallet));
+        let eventTimeLine: Array<IPromise<any>> = [];
+        eventTimeLine.push(Promise.resolve(ero), Promise.resolve(lbr), Promise.resolve(wallet));
 
         ero.eventTypes.forEach(eventType => {
             eventType.eventNodes.forEach(event => {
-                eventTimeline.push(request.get(paths.getTimeLine(event.eventId)));
+                eventTimeLine.push(request.get(paths.getTimeLine(event.eventId)));
             })
         });
 
-        return Promise.all(eventTimeline);
+        return Promise.all(eventTimeLine);
     }
 
     private requestMarketData(markets: Array<any>): Promise<Array<any>> {

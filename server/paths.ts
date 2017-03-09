@@ -1,4 +1,4 @@
-const moment = require("moment");
+let moment = require("moment");
 
 export class paths {
     public static urlLogin: string = "https://identitysso.betfair.com/api/login";
