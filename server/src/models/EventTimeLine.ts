@@ -46,11 +46,11 @@ interface IEventTimeLineDetails {
 }
 
 export enum EventTimeLineStatus {
-    IN_PLAY,
+    IN_PLAY, COMPLETE
 }
 
 export enum EventTimeLineMatchStatus {
-    KickOff,
+    KickOff, Finished
 }
 
 // {
