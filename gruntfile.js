@@ -58,12 +58,12 @@ module.exports = function (grunt) {
         configuration: "tslint.json"
       },
       files: {
-        src: ["src/**/*.ts"]
+        src: ["server/src/**/*.ts", "client/src/**/*.ts"]
       }
     },
     watch: {
       ts: {
-        files: ["*.ts", "src/**/*.ts"],
+        files: ["server/src/**/*.ts", "client/src/**/*.ts"],
         tasks: ["ts"]
         // tasks: ["typescript"]
         // tasks: ["ts", "tslint"]
@@ -72,11 +72,17 @@ module.exports = function (grunt) {
     copy: {
       build: {
         files: [
+          // {
+          //   expand: true,
+          //   cwd: "./client/public",
+          //   src: ["**"],
+          //   dest: "./dist/client/public"
+          // },
           {
             expand: true,
-            cwd: "./public",
-            src: ["**"],
-            dest: "./dist/public"
+            cwd: "server/",
+            src: ["www"],
+            dest: "dist/server"
           }
         ]
       }
@@ -90,7 +96,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-tslint");
 
   grunt.registerTask("default", [
-    // "copy",
+    "copy",
     "ts"
   ]);
 

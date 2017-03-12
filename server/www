@@ -1,5 +1,10 @@
-require('dotenv').config({path: '../.env'});
-var app = require('./dist/src/server');
+require('dotenv').config({path: '.env'});
+
+//console.log(process.env.USERNAME);
+
+//var app = require('../dist/server/src/server');
+
+
 // const express = require('express');
 // import {BettingService} from "./src/BettingService";
 //
