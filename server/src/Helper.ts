@@ -32,6 +32,7 @@ export class Helper {
                         marketId: market.marketId,
                         eventTypeId: eventType.eventTypeId,
                         timeElapsed: timeElapsed,
+                        isFinished: timeLine.inPlayMatchStatus === "COMPLETE",
                         competitionId: 1,
                         state: {
                             status: market.state.status,

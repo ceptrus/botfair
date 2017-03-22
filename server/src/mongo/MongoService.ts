@@ -27,7 +27,8 @@ export class MongoService {
 
     public saveMarket(markets: Array<IMarket>) {
 
-        markets.forEach((market: IMarket) => {
+        markets.filter((market: IMarket) => !market.isFinished)
+            .forEach((market: IMarket) => {
             this.MongoMarketModel.findOne({marketId: market.marketId})
                 .then((savedMarket: IMongoMarketModel) => this.createMarket(market, savedMarket))
                 .then((savedMarket: IMongoMarketModel) => this.updateMarket(market, savedMarket))

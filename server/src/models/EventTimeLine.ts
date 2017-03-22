@@ -16,7 +16,7 @@ export interface IEventTimeLine {
     elapsedAddedTime?: number;      // OPTIONAL
     updateDetails: Array<IEventTimeLineDetails>;
     status: EventTimeLineStatus;
-    inPlayMatchStatus: EventTimeLineMatchStatus;
+    inPlayMatchStatus: EventTimeLineMatchStatus | string;
 }
 
 export interface IEventTimeLineScore {

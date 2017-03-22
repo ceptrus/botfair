@@ -15,6 +15,7 @@ export interface IMarket {
     bets: Array<IBetInfo>;
     distinctBets: number;
     timeElapsed: number;
+    isFinished: boolean;
     state: {
         status: string;
         totalMatched: number;
