@@ -12,7 +12,7 @@ import methodOverride = require("method-override");
 
 new BettingService().init();
 
-if (process.env.START_SERVER) {
+if (process.env.START_SERVER === "true") {
     startServer();
 }
 
