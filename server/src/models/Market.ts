@@ -1,5 +1,7 @@
 import {IAvailable} from "./ERO";
 import {IBetSide} from "./ETX";
+import {Document} from "mongoose";
+import {IRunnerType} from "./DailyStatistic";
 
 export interface IMarket {
     marketId: string;
@@ -16,7 +18,13 @@ export interface IMarket {
     state: {
         status: string;
         totalMatched: number;
-    }
+    };
+    stats?: {
+        won: boolean;
+        amount: number;
+    };
+
+    getWonOnDraw(): boolean;
 }
 
 export interface IRunnerInfo {
@@ -33,7 +41,8 @@ export interface IBetInfo {
     price: number;
     size: number;
     side: IBetSide;
-    placedDate: string;
+    timeElapsed: number;
+    runner: IRunnerType;
 }
 
 export interface IRunnerScore {
@@ -44,6 +53,8 @@ export interface IRunnerScore {
 
 export interface IMongoMarket {
     marketId: string;
-    date: number;
+    date: string;
     markets: Array<IMarket>;
 }
+
+export interface IMongoMarketModel extends IMongoMarket, Document {}

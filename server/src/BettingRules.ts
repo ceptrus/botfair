@@ -2,6 +2,7 @@ import {MarketStatus, IAvailable} from "./models/ERO";
 import {IETXPlaceBet} from "./models/ETX";
 import {Helper} from "./Helper";
 import {IMarket, IRunnerInfo} from "./models/Market";
+import {IWallet} from "./models/Wallet";
 
 export class BettingRules {
 
@@ -67,6 +68,10 @@ export class BettingRules {
                 let matchedSelection = market.bets[0];
 
                 if (matchedSelection.selectionId !== runnerToBet.selectionId) {
+                    /**
+                     * When this happens I should read the odds and if it greater than 1.5 I should bet on draw
+                     * otherwise I should cashout if possible
+                     */
                     wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
                     let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
                     marketsToBet.push(m);

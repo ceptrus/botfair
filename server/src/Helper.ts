@@ -24,8 +24,8 @@ export class Helper {
                     let lbrMarket = this.getLBRMarket(lbrs, market.marketId);
                     let timeLine: IEventTimeLine = timeLines.get(eventNode.eventId);
 
-                    let timeElapsed: number = timeLine ? timeLine.timeElapsed : null;
-                    let bets = this.getBets(lbrMarket);
+                    let timeElapsed: number = timeLine ? timeLine.timeElapsed : -1;
+                    let bets = this.getBets(lbrMarket, timeElapsed);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
                     let mergedData: IMarket = {
@@ -44,6 +44,10 @@ export class Helper {
                         runnerDraw: this.getRunnerData(IRunnerEnum.RunnerDraw, market, timeLine),
                         bets: bets,
                         distinctBets: distinctBets,
+                        getWonOnDraw() {
+                            bets.every((bet: IBetInfo) => bet.side === IBetSide.BACK);
+                            return true;
+                        }
                     };
 
                     markets.push(mergedData);
@@ -75,18 +79,19 @@ export class Helper {
         };
     }
 
-    private static getBets(lbrMarket: ILBR): Array<IBetInfo> {
+    private static getBets(lbrMarket: ILBR, timeElapsed: number): Array<IBetInfo> {
         let bets: Array<IBetInfo> = [];
 
-        _.forEach(lbrMarket.selections, (selection: IMarketSelection) => {
+        _.forEach(lbrMarket.selections, (selection: IMarketSelection, selectionIndex: number) => {
             _.forEach(selection.matches, (match: IMarketMatch) => {
                 let bet: IBetInfo = {
                     selectionId: selection.selectionId,
                     betId: match.betId,
-                    placedDate: match.matchDate,
+                    timeElapsed: timeElapsed,
                     price: match.price,
                     size: match.size,
-                    side: match.side
+                    side: match.side,
+                    runner: selectionIndex,
                 };
                 bets.push(bet);
             });

@@ -1,4 +1,8 @@
-interface IWallet {
+import {Document} from "mongoose";
+
+export interface IWalletModel extends IWallet, Document {}
+
+export interface IWallet {
     details: {
         amount: string;
     },

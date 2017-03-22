@@ -4,20 +4,23 @@ import {Request} from "./Request";
 import {paths} from "../paths";
 import {IFacetedQuery} from "./models/Faceted";
 import IPromise = Axios.IPromise;
-import * as logger from "morgan";
 import {IERO} from "./models/ERO";
 import {ILBR} from "./models/LBR";
 import {BettingRules} from "./BettingRules";
 import {IEventTimeLine} from "./models/EventTimeLine";
 import {IETXPlaceBet} from "./models/ETX";
 import {Helper} from "./Helper";
-import {MongoService} from "./MongoService";
+import {MongoService} from "./mongo/MongoService";
+import * as logger from "morgan";
+import {StatisticsService} from "./StatisticsService";
+import {IWallet} from "./models/Wallet";
 
 export class BettingService {
     private loginService: LoginService;
-    private cron: CronJob;
     private cronExpression: string = "20,40,60 * * * * *";
     private mongoService: MongoService;
+    private request: Request;
+    private statisticService: StatisticsService;
 
     constructor() {
         console.log("BettingService started!");
@@ -27,27 +30,27 @@ export class BettingService {
         this.loginService = new LoginService();
 
         this.loginService.startAuthentication().then(() => {
+            this.request = Request.getInstance();
             this.mongoService = new MongoService();
-            this.cron = new CronJob(this.cronExpression, this.work.bind(this), null, true);
+            this.statisticService = new StatisticsService(this.request);
+
+            new CronJob(this.cronExpression, this.work.bind(this), null, true);
             // this.work();
         }).catch((error: string) => {
             console.error(error);
         });
-        console.log("work done");
     }
 
     private work(): void {
         try {
-            let request = Request.getInstance();
-            let facetedQuery: IFacetedQuery = Helper.getFacetedQuery();
-
             Promise.resolve()
-                .then(() => request.post(paths.urlFacet, facetedQuery))
+                .then(this.getFacetedMarkets.bind(this))
                 .then(this.extractFacetedIds)
                 .then(this.requestMarketData)
                 .then(this.getEventTimeLine)
                 .then(this.mergeAllData)
                 .then(this.saveMarkets.bind(this))
+                .then(this.saveStatistics.bind(this))
                 .then(this.filterWithBettingRules)
                 .then(this.bet)
                 .then((d) => console.log(d))
@@ -80,6 +83,11 @@ export class BettingService {
         return bettingRules.filterMarkets(data.markets, data.wallet);
     }
 
+    private saveStatistics(data: any) {
+        this.statisticService.saveMarketStatistics(data.markets);
+        return data;
+    }
+
     private saveMarkets(data: any): any {
         if (data === null) {
             return null;
@@ -89,10 +97,7 @@ export class BettingService {
             this.mongoService.saveMarket(data.markets)
         }
 
-        return {
-            markets: data.markets,
-            wallet: data.wallet
-        };
+        return data;
     }
 
     private mergeAllData(values: Array<any>): any {
@@ -106,7 +111,7 @@ export class BettingService {
         let eventTimeLine: Map<number, IEventTimeLine> = new Map<number, IEventTimeLine>();
 
         for (let i = 3; i < values.length; i++) {
-            let e: IEventTimeLine = values[i].data;
+            let e: IEventTimeLine = values[i];
             eventTimeLine.set(e.eventId, e);
         }
 
@@ -123,7 +128,7 @@ export class BettingService {
 
         let ero: IERO = values[0].data;
         let lbr: Array<ILBR> = values[1].data;
-        let wallet: IWallet = values[2].data[0];
+        let wallet: IWallet = values[2];
         let request = Request.getInstance();
 
         console.log("Cash: " + wallet.details.amount);
@@ -133,7 +138,7 @@ export class BettingService {
 
         ero.eventTypes.forEach(eventType => {
             eventType.eventNodes.forEach(event => {
-                eventTimeLine.push(request.get(paths.getTimeLine(event.eventId)));
+                eventTimeLine.push(request.getTimeLine(event.eventId));
             })
         });
 
@@ -151,13 +156,18 @@ export class BettingService {
 
         let ero: IPromise<any> = request.get(paths.getERO(markets));
         let lbr: IPromise<any> = request.get(paths.getLBR(markets));
-        let wallet: IPromise<any> = request.get(paths.urlWallet);
+        let wallet: IPromise<any> = request.getWallet();
 
         return Promise.all([ero, lbr, wallet]);
     }
 
     private extractFacetedIds(facetedData: any): Array<string> {
         return facetedData.data.results.map((market: any) => market.marketId);
+    }
+
+    private getFacetedMarkets() {
+        let facetedQuery: IFacetedQuery = Helper.getFacetedQuery();
+        return this.request.post(paths.urlFacet, facetedQuery);
     }
 
 }

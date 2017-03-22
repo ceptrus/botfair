@@ -102,11 +102,19 @@ export class Request {
         this.axiosInstance.get(paths.urlKeepAlive);
     }
 
+    public getTimeLine(eventId: number): IPromise<any> {
+        return this.get(paths.getTimeLine(eventId)).then(data => data.data);
+    }
+
     public get(url: string): IPromise<any> {
         return this.axiosInstance.get(url);
     }
 
     public post(url: string, data: any): IPromise<any> {
         return this.axiosInstance.post(url, data);
+    }
+
+    public getWallet(): IPromise<any> {
+        return this.get(paths.urlWallet).then(data => data.data[0]);
     }
 }
