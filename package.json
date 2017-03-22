@@ -99,7 +99,6 @@
     "client": "node client/scripts/start.js",
     "server": "node dist/server/src/server.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
     "collectCoverageFrom": [
