@@ -93,7 +93,7 @@ export class BettingService {
             return null;
         }
 
-        if (process.env.SAVE_MONGO) {
+        if (process.env.SAVE_MONGO === "true") {
             this.mongoService.saveMarket(data.markets)
         }
 
