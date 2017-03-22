@@ -1,11 +1,13 @@
 import {Model, Document} from "mongoose";
 import {IMarket, IMongoMarket, IMongoMarketModel} from "../models/Market";
-import {WalletModel, MongoMarket, MongoMarketModel} from "./MongoSchemas";
+import {WalletModel, MongoMarket, MongoMarketModel, DailyStatisticModel, DailyStatistic} from "./MongoSchemas";
+import {IDailyStatisticDoc} from "../models/DailyStatistic";
 let moment = require("moment");
 
 export class MongoService {
     private MongoMarketModel: MongoMarketModel = MongoMarket;
     private WalletModel: Model<Document> = WalletModel;
+    private DailyStatisticModel: DailyStatisticModel = DailyStatistic;
 
     public constructor() {
         require('mongoose').Promise = global.Promise;
@@ -15,9 +17,9 @@ export class MongoService {
         return this.MongoMarketModel.findOne({marketId: marketId}).exec();
     }
 
-    // public getDailyStatistic(day: number, month: number, year: number): Promise<IDailyStatisticDoc> {
-    //     return this.DailyStatisticModel.findOne({"date.day": day, "date.month": month, "date.year": year}).exec();
-    // }
+    public getDailyStatistic(day: number, month: number, year: number): Promise<IDailyStatisticDoc> {
+        return this.DailyStatisticModel.findOne({"date.day": day, "date.month": month, "date.year": year}).exec();
+    }
 
     public saveWallet(data: any): Promise<Document> {
         return new this.WalletModel(data).save();

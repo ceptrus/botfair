@@ -31,6 +31,10 @@ export class StatisticsService {
         this.request = request;
         this.mongoService = new MongoService();
 
+        const today = this.getDate();
+        this.mongoService.getDailyStatistic(today.day, today.month, today.year)
+            .then((doc: IDailyStatisticDoc) => this.todayStatsDoc = doc);
+
         // Get wallet job
         new CronJob(this.walletJobExpression, this.getWallet, null, true);
 
@@ -110,7 +114,7 @@ export class StatisticsService {
 
     private createDailyStatistics(): Promise<any> {
         let today: IDate = this.getDate();
-        if (this.busy === false && (this.todayStatsDoc === null || this.todayStatsDoc.date.day !== today.day)) {
+        if (this.busy === false && this.todayStatsDoc.date.day !== today.day) {
             this.busy = true;
 
             let todayStats: IDailyStatistic = {
@@ -137,18 +141,14 @@ export class StatisticsService {
                 markets: [],
             };
 
-            // return new this.DailyStatisticModel(todayStats).save((error: any, doc: IDailyStatisticDoc) => {
-            //         this.todayStatsDoc = doc;
-            //         this.busy = false;
-            //     });
             return this.DailyStatisticModel.findOneAndUpdate({
                 "date.day": todayStats.date.day,
                 "date.month": todayStats.date.month,
                 "date.year": todayStats.date.year,
             }, todayStats, {upsert: true, new: true}).then((doc: any) => {
-                    this.todayStatsDoc = doc;
-                    this.busy = false;
-                });
+                this.todayStatsDoc = doc;
+                this.busy = false;
+            });
         }
         return Promise.resolve();
     }
