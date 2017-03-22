@@ -98,7 +98,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "node client/scripts/start.js",
     "server": "node dist/server/src/server.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js"
   },
   "jest": {
     "collectCoverageFrom": [
