@@ -28,6 +28,11 @@ export class Helper {
                     let bets = this.getBets(lbrMarket, timeElapsed);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
+                    if (timeElapsed === -1) {
+                        console.log(JSON.stringify(timeLine));
+                        return true
+                    }
+
                     let mergedData: IMarket = {
                         marketId: market.marketId,
                         eventTypeId: eventType.eventTypeId,

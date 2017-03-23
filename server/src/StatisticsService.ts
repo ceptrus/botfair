@@ -33,7 +33,12 @@ export class StatisticsService {
 
         const today = this.getDate();
         this.mongoService.getDailyStatistic(today.day, today.month, today.year)
-            .then((doc: IDailyStatisticDoc) => this.todayStatsDoc = doc);
+            .then((doc: IDailyStatisticDoc) => {
+                this.todayStatsDoc = doc;
+                if (doc === null) {
+                    this.createDailyStatistics();
+                }
+            });
 
         // Get wallet job
         new CronJob(this.walletJobExpression, this.getWallet, null, true);
@@ -114,7 +119,7 @@ export class StatisticsService {
 
     private createDailyStatistics(): Promise<any> {
         let today: IDate = this.getDate();
-        if (this.busy === false && this.todayStatsDoc.date.day !== today.day) {
+        if (this.todayStatsDoc === null || (this.busy === false && this.todayStatsDoc.date.day !== today.day)) {
             this.busy = true;
 
             let todayStats: IDailyStatistic = {
