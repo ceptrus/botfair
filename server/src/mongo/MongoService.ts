@@ -32,7 +32,7 @@ export class MongoService {
             this.MongoMarketModel.findOne({marketId: market.marketId})
                 .then((savedMarket: IMongoMarketModel) => this.createMarket(market, savedMarket))
                 .then((savedMarket: IMongoMarketModel) => this.updateMarket(market, savedMarket))
-                .catch(error => console.error(error));
+                .catch(error => console.error("MongoService: " + error));
         });
 
         return markets;
@@ -55,6 +55,11 @@ export class MongoService {
     }
 
     private updateMarket(market: IMarket, savedMarket: IMongoMarketModel): any {
+        // Check to not save this market in the end of the match when ETX is not returning bets anymore
+        // but the market is still not CLOSED
+        if (savedMarket.markets[savedMarket.markets.length - 1].bets.length > market.bets.length) {
+            return;
+        }
         return savedMarket.update({$push: {markets: market}});
     }
 

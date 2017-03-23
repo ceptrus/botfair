@@ -28,8 +28,7 @@ export class Helper {
                     let bets = this.getBets(lbrMarket, timeElapsed);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
-                    if (timeElapsed === -1) {
-                        console.log(JSON.stringify(timeLine));
+                    if (market.state.status === "CLOSED") {
                         return true
                     }
 

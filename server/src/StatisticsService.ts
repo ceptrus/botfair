@@ -164,7 +164,7 @@ export class StatisticsService {
 
         return Promise.all([mongoMarketPromise, timeLinePromise, this.createDailyStatistics()])
             .then(this.updateDailyStatistics.bind(this))
-            .catch(console.error);
+            .catch((e) => console.error("StatisticService: " + e));
     }
 
     private getDate(): IDate {

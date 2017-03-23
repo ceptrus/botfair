@@ -37,7 +37,7 @@ interface IMarketState {
     crossMatching: boolean;
     runnersVoidable: boolean;
     version: number;
-    status: string;
+    status: string; // MarketStatus
 }
 
 export enum MarketStatus {
