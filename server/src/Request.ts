@@ -102,6 +102,10 @@ export class Request {
         this.axiosInstance.get(paths.urlKeepAlive);
     }
 
+    public doCashout(percentage: number, marketId: string) {
+        return this.get(paths.getCashout(percentage, marketId)).then(data => data.data);
+    }
+
     public getTimeLine(eventId: number): IPromise<any> {
         return this.get(paths.getTimeLine(eventId)).then(data => data.data);
     }

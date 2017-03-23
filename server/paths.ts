@@ -7,9 +7,13 @@ export class paths {
     public static urlLBR: string = "https://www.betfair.com/www/sports/exchange/reporting/live/v1.0/getMarketPositionViews?alt=json&includeSettledProfit=false&marketIds={marketIds}&matchProjection=MATCH&ts={timestamp}";
     public static urlERO: string = "https://www.betfair.com/www/sports/exchange/readonly/v1/bymarket?currencyCode=EUR&locale=en_GB&marketIds={marketIds}&rollupLimit=2&rollupModel=STAKE&types=MARKET_STATE,RUNNER_STATE,RUNNER_EXCHANGE_PRICES_BEST,RUNNER_DESCRIPTION&ts={timestamp}";
     public static urlETX: string = "https://www.betfair.com/api/etx-json-rpc?alt=json";
-    public static urlCashout: string = "";
+    public static urlCashout: string = "https://www.betfair.com/cashout-service/transactional/v1.0/cashout?alt=json&currencyCode=EUR&quotePercentage={percentage}&quoteValue=-100&marketId={marketId}";
     public static urlWallet: string = "https://www.betfair.com/wallet-service/v3.0/wallets?walletNames=[MAIN]&alt=json";
     public static urlTimeline: string = "https://www.betfair.com/inplayservice/v1/eventTimeline?alt=json&eventId={eventId}&locale=en_GB&productType=EXCHANGE&regionCode=UK&ts={timestamp}";
+
+    public static getCashout(percentage: number, marketId: string) {
+        return paths.urlCashout.replace("{percentage}", percentage.toString()).replace("{marketId}", marketId);
+    }
 
     public static getTimeLine(eventId: number): string {
         return paths.urlTimeline.replace("{eventId}", eventId.toString()).replace("{timestamp}", moment().milliseconds().toString());

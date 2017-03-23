@@ -3,6 +3,7 @@ import {IETXPlaceBet} from "./models/ETX";
 import {Helper} from "./Helper";
 import {IMarket, IRunnerInfo} from "./models/Market";
 import {IWallet} from "./models/Wallet";
+import {Request} from "./Request";
 
 export class BettingRules {
 
@@ -10,7 +11,7 @@ export class BettingRules {
     private backOverRound: number = 107;
     private layOverRound: number = 95;
 
-    private BET_SIZE: number = 4;
+    private BET_SIZE: number = 3;
 
     public filterMarkets(markets: Array<IMarket>, wallet: IWallet): Array<Array<IETXPlaceBet>> {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];
@@ -72,10 +73,12 @@ export class BettingRules {
                      * When this happens I should read the odds and if it greater than 1.5 I should bet on draw
                      * otherwise I should cashout if possible
                      */
-                    wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
-                    let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
-                    marketsToBet.push(m);
-                    console.log("Counter bet " + market.marketId);
+                    Request.getInstance().doCashout(100, market.marketId);
+                    console.log("CashedOut: " + market.marketId);
+                    // wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
+                    // let m: Array<IETXPlaceBet> = Helper.getETXPlaceBetQuery(market.marketId, runnerToBet.selectionId, this.BET_SIZE);
+                    // marketsToBet.push(m);
+                    // console.log("Counter bet " + market.marketId);
                 }
                 return true;
             }
