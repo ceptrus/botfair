@@ -79,6 +79,7 @@ export class StatisticsService {
         dailyStatistic.markets.push(market.marketId);
         if (market.distinctBets === 1) {
             dailyStatistic.win.n++;
+            dailyStatistic.markets.push(market.marketId);
             dailyStatistic.win.onDraw += runnerWinner === IRunnerType.Draw ? 1 : 0;
             dailyStatistic.win.onRunnerA += runnerWinner === IRunnerType.RunnerA ? 1 : 0;
             dailyStatistic.win.onRunnerB += runnerWinner === IRunnerType.RunnerB ? 1 : 0;
@@ -87,6 +88,7 @@ export class StatisticsService {
 
         } else if (market.distinctBets >= 1) {
             dailyStatistic.lose.n++;
+            dailyStatistic.markets.push(market.marketId);
             dailyStatistic.lose.onDraw = originalBet.runner === IRunnerType.Draw ? 1 : 0;
             dailyStatistic.lose.onRunnerA = originalBet.runner === IRunnerType.RunnerA ? 1 : 0;
             dailyStatistic.lose.onRunnerB = originalBet.runner === IRunnerType.RunnerB ? 1 : 0;
@@ -134,6 +136,7 @@ export class StatisticsService {
                     onRunnerA: 0,
                     onRunnerB: 0,
                     profit: 0,
+                    markets: [],
                 },
                 lose: {
                     n: 0,
@@ -141,6 +144,7 @@ export class StatisticsService {
                     onRunnerA: 0,
                     onRunnerB: 0,
                     loss: 0,
+                    markets: [],
                 },
                 marketChanges: [],
                 markets: [],

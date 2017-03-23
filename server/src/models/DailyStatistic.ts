@@ -14,6 +14,7 @@ export interface IDailyStatistic {
         onDraw: number;     // total wins on draw
         onRunnerA: number;  // total wins on runner A
         onRunnerB: number;  // total wins on runner B
+        markets: Array<string>;
     };
     lose: {
         n: number;          // total looses this day
@@ -21,6 +22,7 @@ export interface IDailyStatistic {
         onDraw: number;     // total looses on draw
         onRunnerA: number;  // total looses on runner A
         onRunnerB: number;  // total looses on runner B
+        markets: Array<string>;
     };
     markets: Array<string>; // today markets
     marketChanges: Array<IDailyMarketChanges>;

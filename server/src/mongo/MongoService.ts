@@ -57,7 +57,7 @@ export class MongoService {
     private updateMarket(market: IMarket, savedMarket: IMongoMarketModel): any {
         // Check to not save this market in the end of the match when ETX is not returning bets anymore
         // but the market is still not CLOSED
-        if (savedMarket.markets[savedMarket.markets.length - 1].bets.length > market.bets.length) {
+        if (savedMarket.markets.length > 0 && savedMarket.markets[savedMarket.markets.length - 1].bets.length > market.bets.length) {
             return;
         }
         return savedMarket.update({$push: {markets: market}});
