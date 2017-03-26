@@ -28,7 +28,7 @@ export class Helper {
                     let bets = this.getBets(lbrMarket, timeElapsed);
                     let distinctBets = _.size(_.uniqBy(bets, bet => bet.betId));
 
-                    if (market.state.status === "CLOSED") {
+                    if (market.state.status === "CLOSED" || timeElapsed === -1) {
                         return true
                     }
 

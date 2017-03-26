@@ -41,7 +41,7 @@ export interface IBetInfo {
     betId: string;
     price: number;
     size: number;
-    side: IBetSide;
+    side: IBetSide | string;
     timeElapsed: number;
     runner: IRunnerType;
 }

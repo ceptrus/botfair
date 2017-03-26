@@ -5,7 +5,7 @@ export class paths {
     public static urlKeepAlive: string = "https://identitysso.betfair.com/api/keepAlive";
     public static urlFacet: string = "https://www.betfair.com/www/sports/navigation/facet/v1/search";
     public static urlLBR: string = "https://www.betfair.com/www/sports/exchange/reporting/live/v1.0/getMarketPositionViews?alt=json&includeSettledProfit=false&marketIds={marketIds}&matchProjection=MATCH&ts={timestamp}";
-    public static urlERO: string = "https://www.betfair.com/www/sports/exchange/readonly/v1/bymarket?currencyCode=EUR&locale=en_GB&marketIds={marketIds}&rollupLimit=2&rollupModel=STAKE&types=MARKET_STATE,RUNNER_STATE,RUNNER_EXCHANGE_PRICES_BEST,RUNNER_DESCRIPTION&ts={timestamp}";
+    public static urlERO: string = "https://www.betfair.com/www/sports/exchange/readonly/v1/bymarket?currencyCode=EUR&locale=en_GB&marketIds={marketIds}&rollupLimit=2&rollupModel=STAKE&types=MARKET_STATE,MARKET_RATES,RUNNER_STATE,RUNNER_EXCHANGE_PRICES_BEST,RUNNER_DESCRIPTION&ts={timestamp}";
     public static urlETX: string = "https://www.betfair.com/api/etx-json-rpc?alt=json";
     public static urlCashout: string = "https://www.betfair.com/cashout-service/transactional/v1.0/cashout?alt=json&currencyCode=EUR&quotePercentage={percentage}&quoteValue=-100&marketId={marketId}";
     public static urlWallet: string = "https://www.betfair.com/wallet-service/v3.0/wallets?walletNames=[MAIN]&alt=json";

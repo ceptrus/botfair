@@ -24,7 +24,7 @@ export interface IMarketMatch {
     size: number;
     matchDate: string;
     isBSP: boolean;
-    side: IBetSide;
+    side: IBetSide | string;
 }
 
 export interface IMarketOrder {

@@ -8,6 +8,7 @@ import {IEventTimeLine} from "./models/EventTimeLine";
 import {IDailyStatistic, IDailyStatisticDoc, IRunnerType, IDailyMarketChanges} from "./models/DailyStatistic";
 import {DailyStatisticModel, DailyStatistic} from "./mongo/MongoSchemas";
 import {IWallet} from "./models/Wallet";
+import {IBetSide} from "./models/ETX";
 let moment = require("moment");
 
 interface IDate {
@@ -18,7 +19,7 @@ interface IDate {
 
 export class StatisticsService {
     private cache: NodeCache;
-    private walletJobExpression: string = "0 0 5 1/1 * *";
+    private walletJobExpression: string = "0 0 5 */1 * *";
     private request: Request;
     private mongoService: MongoService;
 
@@ -41,7 +42,7 @@ export class StatisticsService {
             });
 
         // Get wallet job
-        new CronJob(this.walletJobExpression, this.getWallet, null, true);
+        new CronJob(this.walletJobExpression, this.getWallet.bind(this), null, true);
 
         this.initCache();
     }
@@ -71,7 +72,7 @@ export class StatisticsService {
         let timeLine: IEventTimeLine = promisedValues[1];
 
         let runnerWinner: IRunnerType = this.getWinnerRunner(timeLine);
-        let winner: IBetInfo = this.getWinner(runnerWinner, market.bets);
+        let winner: IRunnerInfo = this.getWinner(runnerWinner, market);
         let originalBet = market.bets[0] ? market.bets[0] : null;
 
         this.updateAndSaveMarketStats(market, timeLine);
@@ -79,7 +80,7 @@ export class StatisticsService {
         dailyStatistic.markets.push(market.marketId);
         if (market.distinctBets === 1) {
             dailyStatistic.win.n++;
-            dailyStatistic.markets.push(market.marketId);
+            dailyStatistic.win.markets.push(market.marketId);
             dailyStatistic.win.onDraw += runnerWinner === IRunnerType.Draw ? 1 : 0;
             dailyStatistic.win.onRunnerA += runnerWinner === IRunnerType.RunnerA ? 1 : 0;
             dailyStatistic.win.onRunnerB += runnerWinner === IRunnerType.RunnerB ? 1 : 0;
@@ -88,18 +89,24 @@ export class StatisticsService {
 
         } else if (market.distinctBets >= 1) {
             dailyStatistic.lose.n++;
-            dailyStatistic.markets.push(market.marketId);
+            dailyStatistic.lose.markets.push(market.marketId);
             dailyStatistic.lose.onDraw = originalBet.runner === IRunnerType.Draw ? 1 : 0;
             dailyStatistic.lose.onRunnerA = originalBet.runner === IRunnerType.RunnerA ? 1 : 0;
             dailyStatistic.lose.onRunnerB = originalBet.runner === IRunnerType.RunnerB ? 1 : 0;
 
-            let won: string = market.bets.filter((bet: IBetInfo) => bet.selectionId === winner.selectionId)
-                .map((bet: IBetInfo) => bet.size * bet.price - bet.size)
-                .reduce((previousValue: number, currentValue: number) => previousValue + currentValue)
-                .toFixed(2);
-            dailyStatistic.win.profit += Number(won);
+            // let won: string = market.bets.filter((bet: IBetInfo) => {
+            //     console.log("bet.selectionId: " + bet.selectionId);
+            //     console.log("winner.selectionId: " + winner.selectionId);
+            //     return bet.selectionId === winner.selectionId;
+            // })
+            //     .map((bet: IBetInfo) => bet.size * bet.price - bet.size)
+            //     .reduce((previousValue: number, currentValue: number) => previousValue + currentValue)
+            //     .toFixed(2);
+            //
+            // dailyStatistic.win.profit += Number(won);
 
             let lost: string = market.bets.filter((bet: IBetInfo) => bet.selectionId !== winner.selectionId)
+                .filter((bet: IBetInfo) => bet.side === IBetSide[IBetSide.BACK])
                 .map((bet: IBetInfo) => bet.size)
                 .reduce((previousValue: number, currentValue: number) => previousValue + currentValue)
                 .toFixed(2);
@@ -168,7 +175,11 @@ export class StatisticsService {
 
         return Promise.all([mongoMarketPromise, timeLinePromise, this.createDailyStatistics()])
             .then(this.updateDailyStatistics.bind(this))
-            .catch((e) => console.error("StatisticService: " + e));
+            .catch((e) => {
+                console.error("StatisticService(" + marketId + "): " + e);
+                // mongoMarketPromise.then(console.error);
+                // timeLinePromise.then(console.error)
+            });
     }
 
     private getDate(): IDate {
@@ -209,11 +220,22 @@ export class StatisticsService {
         return IRunnerType.RunnerB;
     }
 
-    private getWinner(runnerWinner: IRunnerType, bets: Array<IBetInfo>): IBetInfo {
-        return bets.find((bet: IBetInfo) => bet.runner === runnerWinner);
+    private getWinner(runnerWinner: IRunnerType, market: IMarket): IRunnerInfo {
+        if (runnerWinner === IRunnerType.RunnerA) {
+            return market.runnerA;
+        } else if (runnerWinner === IRunnerType.RunnerB) {
+            return market.runnerB;
+        }
+        return market.runnerDraw;
     }
 
     private updateAndSaveMarketStats(market: IMarket, timeLine: IEventTimeLine): void {
+        // const winnerRunner: IRunnerType = this.getWinnerRunner(timeLine);
+        // const winner: IBetInfo = this.getWinner(winnerRunner, market.bets);
 
+        // if (market.distinctBets === 1 || market.bets.every((bet: IBetInfo) => bet.selectionId === winner.selectionId)) {
+        //     market.stats.won = true;
+        //     market.stats.amount = market
+        // }
     }
 }
