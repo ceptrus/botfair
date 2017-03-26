@@ -84,7 +84,15 @@ export class BettingService {
     }
 
     private saveStatistics(data: any) {
-        this.statisticService.saveMarketStatistics(data.markets);
+        if (data === null) {
+            return null;
+        }
+
+        try {
+            this.statisticService.saveMarketStatistics(data.markets);
+        } catch (error) {
+            console.error("BettingService(saveStatistics): " + error);
+        }
         return data;
     }
 
@@ -94,7 +102,11 @@ export class BettingService {
         }
 
         if (process.env.SAVE_MONGO === "true") {
-            this.mongoService.saveMarket(data.markets)
+            try {
+                this.mongoService.saveMarket(data.markets)
+            } catch (error) {
+                console.error("BettingService(saveMarkets): " + error);
+            }
         }
 
         return data;
