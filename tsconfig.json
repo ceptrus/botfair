@@ -10,7 +10,7 @@
 //    "noImplicitReturns": true,
 //    "noImplicitThis": true,
 //    "noUnusedParameters": true,
-    "pretty": true,
+//    "pretty": true,
     "sourceRoot": "server/"
   },
   "exclude": [
