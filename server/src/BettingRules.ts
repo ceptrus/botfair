@@ -7,11 +7,11 @@ import {Request} from "./Request";
 
 export class BettingRules {
 
-    private minimumTotalMatch: number = 5000;
+    private minimumTotalMatch: number = 8000;
     private backOverRound: number = 107;
     private layOverRound: number = 95;
 
-    private BET_SIZE: number = 3;
+    private BET_SIZE: number = 3.5;
 
     public filterMarkets(markets: Array<IMarket>, wallet: IWallet): Array<Array<IETXPlaceBet>> {
         let marketsToBet: Array<Array<IETXPlaceBet>> = [];
@@ -115,7 +115,7 @@ export class BettingRules {
              * BET IN NORMAL CONDITIONS
              */
             let rToBetPrice = runnerToBet.availableToBack[0].price;
-            if (market.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 14 && b3.price - rToBetPrice > 7) {
+            if (market.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 13 && b3.price - rToBetPrice > 7) {
                 console.log("BET IN NORMAL CONDITIONS");
 
                 wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
