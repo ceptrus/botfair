@@ -13,4 +13,4 @@ ls -la ~/.ssh
 
 #chmod 600 id_rsa
 #cp id_rsa ~/.ssh/
-ssh -o "StrictHostKeyChecking no" pi@botfair.redirectme.net /home/pi/botfair.sh
+ssh pi@botfair.redirectme.net /home/pi/botfair.sh

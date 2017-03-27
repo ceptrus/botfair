@@ -7,6 +7,7 @@ before_install:
 before_deploy:
 - chmod 600 /tmp/id_rsa
 - ssh-add /tmp/id_rsa
+- eval "$(ssh-agent -s)"
 #- cp id_rsa ~/.ssh/
 #- rm id_rsa
 #- ls -l ~/.ssh
