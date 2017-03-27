@@ -6,7 +6,7 @@ before_install:
 after_success:
 - chmod 600 id_rsa
 - cp id_rsa ~/.ssh/
-- bash deploy.sh
-#deploy:
-#  provider: script
-#  script: deploy.sh
+#- bash deploy.sh
+deploy:
+  provider: script
+  script: deploy.sh
