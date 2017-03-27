@@ -1,5 +1,8 @@
 #!/bin/bash
 
+pwd
+ls -la
+
 #tar -czvf botfair.tar.gz /dist
 #scp botfair.tar.gz pi@botfair.redirectme.net:/home/pi/scp
 #rsync -r botfair.tar.gz pi@botfair.redirectme.net:/home/pi/rsync

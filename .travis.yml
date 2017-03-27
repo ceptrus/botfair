@@ -1,9 +1,10 @@
 language: node_js
 node_js:
 - 7.1.0
+after_success:
+- openssl aes-256-cbc -K $encrypted_867633b9c15b_key -iv $encrypted_867633b9c15b_iv
+  -in id_rsa.enc -out id_rsa -d
+- bash deploy.sh
 deploy:
   provider: script
   script: deploy.sh
-before_install:
-- openssl aes-256-cbc -K $encrypted_867633b9c15b_key -iv $encrypted_867633b9c15b_iv
-  -in id_rsa.enc -out id_rsa -d
