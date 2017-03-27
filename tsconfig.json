@@ -7,10 +7,6 @@
     "target": "es6",
     "moduleResolution": "node",
     "jsx": "react",
-//    "noImplicitReturns": true,
-//    "noImplicitThis": true,
-//    "noUnusedParameters": true,
-//    "pretty": true,
     "sourceRoot": "server/"
   },
   "exclude": [

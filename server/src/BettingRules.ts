@@ -115,7 +115,7 @@ export class BettingRules {
              * BET IN NORMAL CONDITIONS
              */
             let rToBetPrice = runnerToBet.availableToBack[0].price;
-            if (market.timeElapsed > 45 && Math.abs(b1.price - b2.price) > 13 && b3.price - rToBetPrice > 7) {
+            if (market.timeElapsed > 48 && Math.abs(b1.price - b2.price) > 13 && b3.price - rToBetPrice > 7) {
                 console.log("BET IN NORMAL CONDITIONS");
 
                 wallet.details.amount = (availableToBet - this.BET_SIZE).toString();
@@ -134,6 +134,9 @@ export class BettingRules {
              * FINISH FOR NOW
              */
         });
+
+        console.log("Cash: " + wallet.details.amount + " (" +
+            (Number(wallet.details.amount) + marketsWithBets * this.BET_SIZE).toFixed(2) + ")");
 
         console.log("You have " + marketsWithBets + " active bets");
         return marketsToBet;

@@ -50,7 +50,6 @@ export class BettingService {
                 .then(this.getEventTimeLine)
                 .then(this.mergeAllData)
                 .then(this.saveMarkets.bind(this))
-                .then(this.saveStatistics.bind(this))
                 .then(this.filterWithBettingRules)
                 .then(this.bet)
                 .then((d) => console.log(d))
@@ -69,7 +68,7 @@ export class BettingService {
 
         bets.forEach(bet => {
             console.log(JSON.stringify(bet));
-            request.post(paths.urlETX, bet);
+            request.post(paths.urlETX, bet).then(d => console.info(JSON.stringify(d.data)));
         });
         return "done";
     }
@@ -83,18 +82,6 @@ export class BettingService {
         return bettingRules.filterMarkets(data.markets, data.wallet);
     }
 
-    private saveStatistics(data: any) {
-        if (data === null) {
-            return null;
-        }
-
-        try {
-            this.statisticService.saveMarketStatistics(data.markets);
-        } catch (error) {
-            console.error("BettingService(saveStatistics): " + error);
-        }
-        return data;
-    }
 
     private saveMarkets(data: any): any {
         if (data === null) {
@@ -105,7 +92,13 @@ export class BettingService {
             try {
                 this.mongoService.saveMarket(data.markets)
             } catch (error) {
-                console.error("BettingService(saveMarkets): " + error);
+                console.error("BettingService(saveMarket): " + error);
+            }
+
+            try {
+                this.statisticService.saveMarketStatistics(data.markets);
+            } catch (error) {
+                console.error("BettingService(saveMarketStatistics): " + error);
             }
         }
 
@@ -142,8 +135,6 @@ export class BettingService {
         let lbr: Array<ILBR> = values[1].data;
         let wallet: IWallet = values[2];
         let request = Request.getInstance();
-
-        console.log("Cash: " + wallet.details.amount);
 
         let eventTimeLine: Array<IPromise<any>> = [];
         eventTimeLine.push(Promise.resolve(ero), Promise.resolve(lbr), Promise.resolve(wallet));
