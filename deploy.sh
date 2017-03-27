@@ -2,6 +2,8 @@
 
 pwd
 ls -la
+ls -la ~/
+ls -la ~/.ssh
 
 #tar -czvf botfair.tar.gz /dist
 #scp botfair.tar.gz pi@botfair.redirectme.net:/home/pi/scp
