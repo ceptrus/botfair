@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 pwd
 ls -la
@@ -11,5 +12,5 @@ ls -la ~/.ssh
 #rsync -r --delete-after --quiet botfair.tar.gz pi@botfair.redirectme.net:/home/pi
 
 chmod 600 id_rsa
-mv id_rsa ~/.ssh/
-ssh -o "StrictHostKeyChecking no" pi@botfair.redirectme.net /home/pi/botfair.sh
+cp id_rsa ~/.ssh/
+ssh -o "StrictHostKeyChecking no" -i "id_rsa" pi@botfair.redirectme.net /home/pi/botfair.sh
