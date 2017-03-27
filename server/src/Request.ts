@@ -13,20 +13,22 @@ export class Request {
 
     private constructor(cookie: string, token: string) {
         const headers = {
-            'X-Application': 'nzIFcwyWhrlwYMrh',
             "Accept": "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            "Origin": "https://www.betfair.com",
-            "Referer": "https://www.betfair.com/exchange/plus/",
+            "Accept-Encoding": "gzip, deflate",
             "Connection": "keep-alive",
-            "Accept-Encoding": "gzip",
+            "Accept-Language": "en",
+            "Cookie": cookie + "; geoIpCountryCode=NL;",
+            "Host": "www.betfair.com",
+            "Origin": "https://www.betfair.com/exchange",
+            "Referer": "https://www.betfair.com/exchange/plus/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36",
+            "X-Application": "nzIFcwyWhrlwYMrh",
             "X-Authentication": token,
-            'Cookie': cookie
         };
 
         this.axiosInstance = axios.create({
             // baseURL: 'https://www.betfair.com/exchange/',
-            timeout: 15000,
+            // timeout: 15000,
             headers: headers
         });
         // this.axiosInstance.interceptors.request.use(request => {
