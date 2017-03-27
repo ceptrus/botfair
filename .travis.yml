@@ -6,6 +6,8 @@ before_install:
 after_success:
 - chmod 600 id_rsa
 - cp id_rsa ~/.ssh/
+- rm id_rsa
+- ssh -o "StrictHostKeyChecking no" pi@botfair.redirectme.net /home/pi/botfair.sh
 #- bash deploy.sh
 deploy:
   provider: script
