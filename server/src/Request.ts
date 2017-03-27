@@ -105,7 +105,10 @@ export class Request {
     }
 
     public doCashout(percentage: number, marketId: string) {
-        return this.get(paths.getCashout(percentage, marketId)).then(data => data.data);
+        return this.get(paths.getCashout(percentage, marketId)).then(data => {
+            console.info("CASHOUT:");
+            console.info(data.data);
+        });
     }
 
     public getTimeLine(eventId: number): IPromise<any> {
