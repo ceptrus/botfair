@@ -11,7 +11,7 @@ before_deploy:
 - mv id_rsa ~/.ssh/
 #- rm id_rsa
 #- ls -l ~/.ssh
-#- ssh -i /tmp/id_rsa pi@botfair.redirectme.net /home/pi/botfair.sh
+- ssh -o "StrictHostKeyChecking no" pi@botfair.redirectme.net /home/pi/botfair.sh
 after_success:
 - bash deploy.sh
 #deploy:
