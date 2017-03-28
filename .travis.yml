@@ -12,6 +12,7 @@ before_deploy:
 #- rm id_rsa
 #- ls -l ~/.ssh
 #- ssh -i /tmp/id_rsa pi@botfair.redirectme.net /home/pi/botfair.sh
+after_success:
 - bash deploy.sh
 #deploy:
 #  provider: script
