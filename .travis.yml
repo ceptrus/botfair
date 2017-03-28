@@ -2,20 +2,20 @@ language: node_js
 node_js:
 - 7.1.0
 before_install:
-- openssl aes-256-cbc -K $encrypted_867633b9c15b_key -iv $encrypted_867633b9c15b_iv -in id_rsa.enc -out /tmp/id_rsa -d
+- openssl aes-256-cbc -K $encrypted_867633b9c15b_key -iv $encrypted_867633b9c15b_iv -in id_rsa.enc -out id_rsa -d
 #after_success:
 before_deploy:
-- chmod 600 /tmp/id_rsa
-- ssh-add /tmp/id_rsa
-- eval "$(ssh-agent -s)"
-#- cp id_rsa ~/.ssh/
+- chmod 600 id_rsa
+#- ssh-add /tmp/id_rsa
+#- eval "$(ssh-agent -s)"
+- mv id_rsa ~/.ssh/
 #- rm id_rsa
 #- ls -l ~/.ssh
-- ssh -o "StrictHostKeyChecking no" -i id_rsa pi@botfair.redirectme.net /home/pi/botfair.sh
-#- bash deploy.sh
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: deploy.sh
-  on:
-    branch: master
+#- ssh -i /tmp/id_rsa pi@botfair.redirectme.net /home/pi/botfair.sh
+- bash deploy.sh
+#deploy:
+#  provider: script
+#  skip_cleanup: true
+#  script: deploy.sh
+#  on:
+#    branch: master
