@@ -11,6 +11,6 @@ set -x
 #rsync -r botfair.tar.gz pi@botfair.redirectme.net:/home/pi/rsync
 #rsync -r --delete-after --quiet botfair.tar.gz pi@botfair.redirectme.net:/home/pi
 
-#chmod 600 id_rsa
-#cp id_rsa ~/.ssh/
+chmod 600 id_rsa
+mv id_rsa ~/.ssh/
 ssh -o "StrictHostKeyChecking no" pi@botfair.redirectme.net /home/pi/botfair.sh
